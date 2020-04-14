@@ -1,5 +1,6 @@
-import Home from './Home'
-import Login from './Login'
-import Dashboard from './Dashboard'
+import Home from './Home';
+import Dashboard from './Dashboard';
+import Login from './Login';
+import Singup from './Singup';
 
-export { Home, Login, Dashboard }
+export { Home, Dashboard };

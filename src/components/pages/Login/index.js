@@ -1,28 +1,28 @@
-import React from 'react'
-import { observer } from 'mobx-react-lite'
-import { useHistory, useLocation } from 'react-router-dom'
-import LoginForm from './Form'
-import { useUser } from '../../../hooks'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-function Login() {
-  const userCtx = useUser()
-  const history = useHistory()
-  const location = useLocation()
-
-  const { from } = location.state || { from: { pathname: '/' } }
-
-  const login = (username, password) => {
-    userCtx.login(username, password, () => {
-      history.replace(from)
-    })
+function Login(){
+  function onSubmit(){
+    return;
   }
 
   return (
     <div>
-      {/* TODO: Add breadcumps */}
-      <LoginForm login={login} />
+      <h1>Login page</h1>
+      <small>You dont have an account yet ? <Link to="/signup">Singup</Link>
+      </small>
+      <form onSubmit={onSubmit}>
+        <fieldset>
+          <label>Email</label>
+          <input type="text" placeholder="Enter you email"/>
+        </fieldset>
+        <fieldset>
+          <label>Password</label>
+          <input type="password" placeholder="Enter you email"/>
+        </fieldset>
+      </form>
     </div>
-  )
+  );
 }
 
-export default observer(Login)
+export default Login;

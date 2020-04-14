@@ -2,8 +2,7 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 
-
-function PrivateRoute({ isAuthenticated, children, ...rest }) {
+function GuestRoute( isAuthenticated , children ,...rest) {
   return (
     <Route
       {...rest}
@@ -13,7 +12,7 @@ function PrivateRoute({ isAuthenticated, children, ...rest }) {
         ) : (
           <Redirect
             to={{
-              pathname: '/',
+              pathname: '/login',
               state: { from: location }
             }}
           />
@@ -23,4 +22,5 @@ function PrivateRoute({ isAuthenticated, children, ...rest }) {
   )
 }
 
-export default PrivateRoute;
+
+export default observer(GuestRoute);
