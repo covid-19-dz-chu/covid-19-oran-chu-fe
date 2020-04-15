@@ -1,26 +1,22 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { observer } from 'mobx-react-lite';
+import { connect } from 'react-redux';
 
-function GuestRoute( isAuthenticated , children ,...rest) {
+
+
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticad:true,
+  }
+}
+
+function GuestRoute({ component : Component , isAuthenticated , ...rest}) {
   return (
-    <Route
-      {...rest}
-      render={({ location }) =>
-        isAuthenticated ? (
-          children
-        ) : (
-          <Redirect
-            to={{
-              pathname: '/login',
-              state: { from: location }
-            }}
-          />
-        )
-      }
-    />
-  )
+    <Route 
+      {...rest} 
+      render={(props) => !isAuthenticated ? (<Component {...props}/>) : (<Redirect to="/login"/>)}/>
+  ) 
 }
 
 
-export default observer(GuestRoute);
+export default connect(mapStateToProps)(GuestRoute);
