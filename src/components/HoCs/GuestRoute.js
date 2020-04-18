@@ -19,4 +19,4 @@ function GuestRoute({ component : Component , isAuthenticated , ...rest}) {
 }
 
 
-export default connect(mapStateToProps)(GuestRoute);
+export default connect(mapStateToProps,()=> {})(GuestRoute);

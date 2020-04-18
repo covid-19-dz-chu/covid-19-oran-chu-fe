@@ -7,44 +7,52 @@ import Dashbord from '../pages/Dashboard';
 import Home from '../pages/Home';
 import Login from '../pages/Login';
 import Singup from '../pages/Singup';
+import homeRequets from '../../api/home';
 import { connect } from 'react-redux';
-import {
-  APP_LOADING
-} from '../../constants/actionTypes';
+import { APP_LOADING } from '../../constants/actionTypes';
 
 const mapStateToProps = (state) => {
   return {
-    appName : state.app.appName,
-    loading : false,
+    appName: state?.app?.appName ,
+    appLoaded: true,
   }
 };
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   onLoad: (payload, token) =>
-    dispatch({ type: APP_LOADING, payload, token, skipTracking: true }),
-  
+    dispatch({ type: APP_LOADING, payload, token }),
 });
 class App extends Component {
-  componentWillMount(){
 
+  constructor(props){
+    super(props);
+  }
+
+  componentWillMount(){
+    this.props.onLoad(homeRequets.healthCheck(), "JFKJFKSJFSJFKSJ");
   }
   
-  render(){
-    return (
-      <ErrorBoundary>
+  render() {
+    if(this.props.appLoaded){
+      return (
         <BrowserRouter>
-          <Switch>
-            <GuestRoute exact path="/" component={Home}/>
-            <GuestRoute exact path="/login" component={Login}/>
-            <GuestRoute exact path="/signup" component={Singup}/>
-            <PrivateRoute path="/dashbord" component={Dashbord}/>
-          </Switch>
-        </BrowserRouter>
-      </ErrorBoundary>
-    );
+            <Switch>
+              <GuestRoute exact path="/" component={Home}/>
+              <GuestRoute exact path="/login" component={Login}/>
+              <GuestRoute exact path="/signup" component={Singup}/>
+              <PrivateRoute path="/dashbord" component={Dashbord}/>
+            </Switch>
+          </BrowserRouter>
+        );
+    } else{
+      return (
+        <>
+          <button onClick={null}/>
+        </>
+      );
+    }
   }
-  
 }
 
 
-export default connect(() => {} , mapStateToProps)(App) ;
+export default connect(mapStateToProps ,mapDispatchToProps)(App) ;
