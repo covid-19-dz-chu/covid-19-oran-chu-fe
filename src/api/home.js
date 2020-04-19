@@ -1,4 +1,4 @@
-import requests from './index';
+import requests from './request';
 
 export default {
   healthCheck: () => {

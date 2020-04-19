@@ -2,21 +2,29 @@ import React , {Component} from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import authRequests from '../../../api/auth';
+import PropTypes from 'prop-types';
 import {
-  UPDATE_FIELD_AUTH, 
+  UPDATE_FIELD_SIGNUP, 
   SIGNUP_PAGE_UNLOADED,
   SIGNUP_REQUESTED,
+  SIGNUP_PAGE_LOADED,
+  VALIDATE_FIELDS_SIGNUP
 } from '../../../constants/actionTypes';
 
-const mapStateToProps = state => ({ 
-  ...state.auth,
-});
+const mapStateToProps = (state) => {
+  return {
+    signup : state.signup,
+  }
+}
+  
 
 const mapDispatchToProps = (dispatch) => ({
-  onChangeUsername: (value) =>
-    dispatch({ type: UPDATE_FIELD_AUTH, key: 'email', value }),
-  onChangePassword: (value) =>
-    dispatch({ type: UPDATE_FIELD_AUTH, key: 'password', value }),
+  onLoad:() =>
+    dispatch({type:SIGNUP_PAGE_LOADED}),
+  onChangeField: (key, value) =>
+    dispatch({type: UPDATE_FIELD_SIGNUP, key, value}),
+  onValidateFields:(errors)=>
+    dispatch({type:VALIDATE_FIELDS_SIGNUP , errors}),
   onSubmit: (username, password) =>
     dispatch({ type: SIGNUP_REQUESTED, payload:authRequests.signup(username , password)}),
   onUnload: () =>
@@ -29,51 +37,94 @@ class Singup extends Component{
     super(props);
   }
 
-  onSubmit(email,password){
-    
+  componentWillMount(){
+    if(this.props){
+      //
+    }
+    this.props.onLoad();
   }
 
+  validate(credentials){
+    const errors = {};
+    if(!credentials.email){
+      errors.email = 'Veuillez introduire votre email'
+    }
+    
+    if(!credentials.password){
+      errors.password = 'Veuillez introduire votre mot de passe';
+    }
+
+    if(credentials.password != credentials.confirmPassword){
+      errors.confirmPassword = 'Votre confirmation de mot de passe est invalid'
+    }
+    return errors;
+  }
+
+  onSubmit = (ev) => {
+    ev.preventDefault();
+    const errors = this.validate(this.props.signup);
+    if( Object.keys(errors).length === 0){
+      this.props.onSubmit(this.props.email , this.props.password);
+    }else {
+      this.props.onValidateFields(errors)
+    }
+    
+  }
+    
   render() {
+    
+    const { email,password ,confirmPassword, errors }= this.props.signup;
+    
     return (
       <div>
-        <h1>Signup page</h1>
-        <small>You already have an account ? <Link to="/login">Login</Link></small>
-        <form onSubmit={this.onSubmit(this.props.email , this.props.password)}>
+        <h1>Inscrire </h1>
+        <small>Si vous etes inscris ? <Link to="/login">Veuillez vous connecter</Link></small>
+        <form onSubmit={this.onSubmit}>
           <fieldset>
             <label>Email</label>
             <br/>
-            <input
-                      className="form-control form-control-lg"
-                      type="text"
-                      placeholder="Entrer votre email"
-                      value={this.props.username}
-                      onChange={(e) => this.props.onChangeField('email' , e.target.value)} />
+            <input  className="form-control form-control-lg"
+                    type="text"
+                    placeholder="Entrer votre email"
+                    value={email}
+                    onChange={(e) => this.props.onChangeField('email' , e.target.value)} />
+                    <small>{ errors.email ? errors.email: null}</small>
           </fieldset>
           <fieldset>
-            <label>Email</label>
-            <br/>
-            <input
-                      className="form-control form-control-lg"
-                      type="password"
-                      placeholder="Entrer votre password"
-                      value={this.props.password}
-                      onChange={(e) => this.props.onChangeField('password' , e.target.value)} />
-          </fieldset>
-          <fieldset>
-            <label>Password</label>
+            <label>Mot de passe</label>
             <br/>
             <input
                       className="form-control form-control-lg"
                       type="password"
                       placeholder="Entrer votre mot de passe"
-                      value={this.props.confirmPassword}
+                      value={password}
                       onChange={(e) => this.props.onChangeField('password' , e.target.value)} />
+            <small>{errors.password ? errors.password : null}</small>
           </fieldset>
+          <fieldset>
+            <label>Confirmation Mot de passe</label>
+            <br/>
+            <input
+                      className="form-control form-control-lg"
+                      type="password"
+                      placeholder="Confirmer votre mot de passe"
+                      value={confirmPassword}
+                      onChange={(e) => this.props.onChangeField('confirmPassword' , e.target.value)} />
+            <small>{errors.confirmPassword ? errors.confirmPassword : null}</small>
+          </fieldset>
+          <br/>
+          <button
+            className="btn btn-lg btn-primary pull-xs-right"
+            type="submit"
+            >
+            Sign in
+          </button>
         </form>
       </div>
     );  
   }
-  
 }
+
+
 
 export default connect(mapStateToProps ,mapDispatchToProps)(Singup);

@@ -1,24 +1,33 @@
 import {
-    LOGIN_PAGE_LOADED,
-    LOGIN_PAGE_UNLOADED,
-    UPDATE_FIELD_AUTH,
+    SIGNUP_PAGE_LOADED,
+    SIGNUP_PAGE_UNLOADED,
+    UPDATE_FIELD_SIGNUP,
+    SIGNUP_REQUESTED,
+    VALIDATE_FIELDS_SIGNUP,
   } from '../constants/actionTypes';
   
   export default (state = {}, action) => {
     switch( action.type ){
-        case LOGIN_PAGE_LOADED:
-        case LOGIN_PAGE_UNLOADED:
+        case SIGNUP_PAGE_LOADED:
             return {
                 ...state,
-                email: '',
-                password: '',
-                confirmPassword : '',
             }
         
-        case UPDATE_FIELD_AUTH:
+        case SIGNUP_REQUESTED:
+            return {
+                 ...state,
+                 loading : true,
+            }
+        
+        case VALIDATE_FIELDS_SIGNUP:
             return {
                 ...state,
-                [action.key] : action.value
+                errors: action.errors
+            }
+        case UPDATE_FIELD_SIGNUP:
+            return {
+                ...state,
+                [action.key] : action.value,
             };
         default:
             return state;

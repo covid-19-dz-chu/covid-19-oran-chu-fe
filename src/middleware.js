@@ -1,12 +1,12 @@
-import agent from './agent';
 import {
   ASYNC_START,
   ASYNC_END,
-  LOGIN,
-  LOGOUT,
-  REGISTER
+  LOGIN_REQUESTED,
+  SIGNUP_REQUESTED,
+  LOGOUT_REQUESTED,
 } from './constants/actionTypes';
 
+//Replaces redux thunk 
 const promiseMiddleware = store => next => action => {
   if (isPromise(action.payload)) {
     store.dispatch({ type: ASYNC_START, subtype: action.type });
@@ -20,7 +20,7 @@ const promiseMiddleware = store => next => action => {
         if (!skipTracking && currentState.viewChangeCounter !== currentView) {
           return
         }
-        console.log('RESULT', res);
+        console.info('RESULT', res);
         action.payload = res;
         
         store.dispatch({ type: ASYNC_END, promise: action.payload });
@@ -31,36 +31,39 @@ const promiseMiddleware = store => next => action => {
         if (!skipTracking && currentState.viewChangeCounter !== currentView) {
           return
         }
-        console.log('ERROR', error);
+        console.warn('ERROR', error);
+
         action.error = true;
         action.payload = error
+        
         if (!action.skipTracking) {
           store.dispatch({ type: ASYNC_END, promise: action.payload });
         }
+        
         store.dispatch(action);
       }
     );
-
     return;
   }
-
   next(action);
 };
 
+
 const localStorageMiddleware = store => next => action => {
-  if (action.type === REGISTER || action.type === LOGIN) {
+  if (action.type === SIGNUP_REQUESTED || action.type === LOGIN_REQUESTED) {
     if (!action.error) {
-      window.localStorage.setItem('jwt', action.payload.token);
-      agent.setToken(action.payload.token);
+      window.localStorage.setItem('Bearer', action.payload.token);
+      
     }
-  } else if (action.type === LOGOUT) {
-    window.localStorage.setItem('jwt', '');
-    agent.setToken(null);
+  } else if (action.type === LOGOUT_REQUESTED) {
+     window.localStorage.setItem('Bearer', '');
+     
   }
 
   next(action);
 };
 
+// Check if function is async or not
 function isPromise(v) {
   return v && typeof v.then === 'function';
 }

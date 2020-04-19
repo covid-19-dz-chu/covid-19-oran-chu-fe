@@ -9,7 +9,7 @@ export default function(state={} , action) {
     case APP_LOADING : 
       return {
         appName : "Covid 19 application",
-        appLoaded : false,
+        appLoaded : action.payload.error ? true : true,
       }
     case APP_LOADING_SUCCESS:
       return {

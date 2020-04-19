@@ -1,4 +1,7 @@
-import requests from './index';
+import requests from './request';
+
+
+
 
 export default {
   login: (email , password) => {
@@ -7,6 +10,9 @@ export default {
   signup: (email , password) => {
       return requests.post('signup');
   },
+  setToken : (token) => {
+    localStorage.setItem('token' , token);
+  }
 }
 
 
