@@ -1,7 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 function Dashboard() {
-  return <h1>Welcome to the ugly dashboard</h1>
+  return <h1>Welcome to the ugly dashboard</h1>;
 }
 
-export default Dashboard
+export default Dashboard;

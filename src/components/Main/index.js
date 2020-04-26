@@ -1,9 +1,9 @@
-import React from 'react'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import ErrorBoundary from '../HoCs/ErrorBoundary'
-import PrivateRoute from '../HoCs/PrivateRoute'
-import Container from './Container'
-import { Login, Home, Dashboard } from '../pages'
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import ErrorBoundary from '../HoCs/ErrorBoundary';
+import PrivateRoute from '../HoCs/PrivateRoute';
+import Container from './Container';
+import { Login, Home, Dashboard } from '../pages';
 
 function App() {
   return (
@@ -24,7 +24,7 @@ function App() {
         </Container>
       </Router>
     </ErrorBoundary>
-  )
+  );
 }
 
-export default App
+export default App;
