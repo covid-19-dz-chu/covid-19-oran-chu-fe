@@ -16,14 +16,13 @@ const mapStateToProps = (state) => {
   }
 }
   
-
 const mapDispatchToProps = (dispatch) => ({
   onLoad:() =>
     dispatch({type:SIGNUP_PAGE_LOADED}),
   onChangeField: (key, value) =>
     dispatch({type: UPDATE_FIELD_SIGNUP, key, value}),
   onValidateFields:(errors)=>
-    dispatch({type:VALIDATE_FIELDS_SIGNUP , errors}),
+    dispatch({type:VALIDATE_FIELDS_SIGNUP , payload : errors }),
   onSubmit: (username, password) =>
     dispatch({ type: SIGNUP_REQUESTED, payload:authRequests.signup(username , password)}),
   onUnload: () =>
@@ -37,9 +36,6 @@ class Singup extends Component{
   }
 
   componentWillMount(){
-    if(this.props){
-      //
-    }
     this.props.onLoad();
   }
 
@@ -63,21 +59,27 @@ class Singup extends Component{
     ev.preventDefault();
     const errors = this.validate(this.props.signup);
     if( Object.keys(errors).length === 0){
-      this.props.onSubmit(this.props.email , this.props.password);
+      console.log({
+        email : this.props.signup.email,
+        password :this.props.signup.password,
+        confirmPassword : this.props.signup.confirmPassword,
+      })
+      // this.props.onSubmit(this.props.email , this.props.password);
     }else {
-      this.props.onValidateFields(errors)
+      this.props.onValidateFields(errors);
     }
     
   }
     
   render() {
     
-    const { email,password ,confirmPassword, errors } = this.props.signup;
+    const { email, password , confirmPassword , errors } = this.props.signup;
     
     return (
       <div>
         <h1>Inscrire </h1>
         <small>Si vous etes inscris ? <Link to="/login">Veuillez vous connecter</Link></small>
+        
         <form onSubmit={this.onSubmit}>
           <fieldset>
             <label>Email</label>

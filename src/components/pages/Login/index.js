@@ -43,17 +43,18 @@ class Login extends Component {
 
   onSubmit = (ev) => {
     ev.preventDefault();
+    
     console.log({
       email : this.props.login.email,
       password : this.props.login.password,
-    })
-    ev.preventDefault();
+    });
+
     this.props.onSubmit(this.props.login.email , this.props.login.password);
   }
   
   render(){
-    const email = this.props.login.email;
-    const password = this.props.login.password;
+    const { email , password } = this.props.login;
+    
     return (
       <div>
         <h1>Se connecter</h1>

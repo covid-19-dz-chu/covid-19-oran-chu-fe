@@ -1,6 +1,5 @@
 import {
   LOGIN_PAGE_LOADED,
-  LOGIN_PAGE_UNLOADED,
   UPDATE_FIELD_LOGIN,
   LOGIN_REQUESTED,
 } from '../constants/actionTypes';
@@ -10,6 +9,8 @@ export default (state = {}, action) => {
     case LOGIN_PAGE_LOADED: 
       return {
         ...state,
+        email:'',
+        password:'',
       };
     
     case LOGIN_REQUESTED:

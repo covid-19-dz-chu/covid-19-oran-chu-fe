@@ -11,6 +11,7 @@ import {
         case SIGNUP_PAGE_LOADED:
             return {
                 ...state,
+                laoding:false,
                 email:'',
                 password:'',
                 confirmPassword:'',
@@ -25,7 +26,7 @@ import {
         case VALIDATE_FIELDS_SIGNUP:
             return {
                 ...state,
-                errors: action.errors
+                errors: action.payload.errors ? action.payload.errors : {}
             }
         case UPDATE_FIELD_SIGNUP:
             return {

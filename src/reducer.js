@@ -6,9 +6,7 @@ import login from './reducer/login';
 import signup from './reducer/signup';
 
 export default combineReducers({
-  // app related reducers
   app,
-  //app components relted reducers 
   home,
   auth,
   login,
