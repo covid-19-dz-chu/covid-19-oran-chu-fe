@@ -4,42 +4,42 @@ import {
   LOGIN_REQUESTED,
   SIGNUP_REQUESTED,
   LOGOUT_REQUESTED,
-} from './constants/actionTypes';
+} from './utils/constants/actionTypes';
 
-//Replaces redux thunk 
-const promiseMiddleware = store => next => action => {
+// Replaces redux thunk
+const promiseMiddleware = (store) => (next) => (action) => {
   if (isPromise(action.payload)) {
     store.dispatch({ type: ASYNC_START, subtype: action.type });
 
     const currentView = store.getState().viewChangeCounter;
-    const skipTracking = action.skipTracking;
+    const { skipTracking } = action;
 
     action.payload.then(
-      res => {
-        const currentState = store.getState()
+      (res) => {
+        const currentState = store.getState();
         if (!skipTracking && currentState.viewChangeCounter !== currentView) {
-          return
+          return;
         }
         console.info('RESULT', res);
         action.payload = res;
-        
+
         store.dispatch({ type: ASYNC_END, promise: action.payload });
         store.dispatch(action);
       },
-      error => {
-        const currentState = store.getState()
+      (error) => {
+        const currentState = store.getState();
         if (!skipTracking && currentState.viewChangeCounter !== currentView) {
-          return
+          return;
         }
         console.warn('ERROR', error);
 
         action.error = true;
-        action.payload = error
-        
+        action.payload = error;
+
         if (!action.skipTracking) {
           store.dispatch({ type: ASYNC_END, promise: action.payload });
         }
-        
+
         store.dispatch(action);
       }
     );
@@ -48,16 +48,13 @@ const promiseMiddleware = store => next => action => {
   next(action);
 };
 
-
-const localStorageMiddleware = store => next => action => {
+const localStorageMiddleware = (store) => (next) => (action) => {
   if (action.type === SIGNUP_REQUESTED || action.type === LOGIN_REQUESTED) {
     if (!action.error) {
       window.localStorage.setItem('Bearer', action.payload.token);
-      
     }
   } else if (action.type === LOGOUT_REQUESTED) {
-     window.localStorage.setItem('Bearer', '');
-     
+    window.localStorage.setItem('Bearer', '');
   }
 
   next(action);
@@ -68,5 +65,4 @@ function isPromise(v) {
   return v && typeof v.then === 'function';
 }
 
-
-export { promiseMiddleware, localStorageMiddleware }
+export { promiseMiddleware, localStorageMiddleware };

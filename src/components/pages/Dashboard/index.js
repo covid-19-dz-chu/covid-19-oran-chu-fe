@@ -1,20 +1,12 @@
-import React , { Component } from 'react';
+import React, { Component } from 'react';
 
-
-
-
-
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   //
-})
+});
 class Dashboard extends Component {
-  
+  componentWillMount() {}
 
-  componentWillMount(){
-    
-  }
-
-  render(){
+  render() {
     return (
       <div>
         <h1>Dashbord Page</h1>
