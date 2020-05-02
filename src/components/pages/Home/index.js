@@ -1,10 +1,11 @@
 import React , {Component} from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import homeRequest from '../../../api/home';
 import {
   HOME_PAGE_LOADED
 } from '../../../constants/actionTypes';
-import homeRequest from '../../../api/home';
+
 const mapStateToProps = state => ({
 
 })

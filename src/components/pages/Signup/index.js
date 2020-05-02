@@ -31,10 +31,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 
 class Singup extends Component{
-  constructor(props){
-    super(props);
-  }
-
+  
   componentWillMount(){
     this.props.onLoad();
   }
@@ -77,7 +74,7 @@ class Singup extends Component{
     
     return (
       <div>
-        <h1>Inscrire </h1>
+        <h1>Inscription</h1>
         <small>Si vous etes inscris ? <Link to="/login">Veuillez vous connecter</Link></small>
         
         <form onSubmit={this.onSubmit}>

@@ -1,6 +1,8 @@
 import React , {Component } from 'react';
 import { BrowserRouter, Switch ,Route } from 'react-router-dom';
 import { connect } from 'react-redux';
+import GuestRoute from '../HoCs/GuestRoute';
+import PrivateRoute from '../HoCs/PrivateRoute';
 import Dashbord from '../pages/Dashboard';
 import Home from '../pages/Home';
 import Login from '../pages/Login';
@@ -24,9 +26,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 class App extends Component {
-  constructor(props){
-    super(props);
-  }
   
   componentWillMount(){
     const token = this.props.token;
@@ -46,10 +45,10 @@ class App extends Component {
           <h1>{this.props.appName}</h1>
           <BrowserRouter>
             <Switch>
-              <Route exact path="/" component={Home}/>
-              <Route exact path="/login" component={Login}/>
-              <Route exact path="/signup" component={Signup}/>
-              <Route path="/dashbord" component={Dashbord}/>
+              <GuestRoute exact path="/" component={Home}/>
+              <GuestRoute exact path="/login" component={Login}/>
+              <GuestRoute exact path="/signup" component={Signup}/>
+              <PrivateRoute path="/dashbord" component={Dashbord}/>
             </Switch>
           </BrowserRouter>
         </div>

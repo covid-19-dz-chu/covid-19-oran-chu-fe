@@ -1,11 +1,26 @@
-import React from 'react';
+import React , { Component } from 'react';
 
-function Dashboard() {
-  return (
-    <div>
-      <h1>Dashbord Page</h1>
-    </div>
-  );
+
+
+
+
+const mapDispatchToProps = dispatch => ({
+  //
+})
+class Dashboard extends Component {
+  
+
+  componentWillMount(){
+    
+  }
+
+  render(){
+    return (
+      <div>
+        <h1>Dashbord Page</h1>
+      </div>
+    );
+  }
 }
 
 export default Dashboard;

@@ -14,6 +14,7 @@ import {
 const mapStateToProps = (state) => {
   return {
     login:state.login,
+    authenticated : false,
   }
 }
 
