@@ -1,18 +1,14 @@
 import requests from './request';
-
-
-
+import { loginWithEmailAndPassword } from './firebase';
 
 export default {
-  login: (email , password) => {
-    return requests.post('login');
+  login: async (email, password) => {
+    return loginWithEmailAndPassword(email, password);
   },
-  signup: (email , password) => {
-      return requests.post('signup');
+  signup: () => {
+    return requests.post('signup');
   },
-  setToken : (token) => {
-    localStorage.setItem('token' , token);
-  }
-}
-
-
+  setToken: (token) => {
+    localStorage.setItem('token', token);
+  },
+};

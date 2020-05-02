@@ -1,38 +1,32 @@
-import React , {Component} from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import homeRequest from '../../../api/home';
-import {
-  HOME_PAGE_LOADED
-} from '../../../constants/actionTypes';
+import { HOME_PAGE_LOADED } from '../../../utils/constants/actionTypes';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({});
 
-})
-
-const mapDispatchToProps = dispatch => ({
-  onLoad: () => 
-    dispatch({ type : HOME_PAGE_LOADED}) 
+const mapDispatchToProps = (dispatch) => ({
+  onLoad: () => dispatch({ type: HOME_PAGE_LOADED }),
 });
 class Home extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
   }
 
-  componentWillMount(){
+  componentWillMount() {
     this.props.onLoad();
   }
 
-  render(){
+  render() {
     return (
       <div>
         <h1>Home Page</h1>
         <Link to="/login">Login</Link>
         <Link to="/signup">Signup</Link>
       </div>
-    );  
+    );
   }
-  
 }
 
-export default connect(mapStateToProps , mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
