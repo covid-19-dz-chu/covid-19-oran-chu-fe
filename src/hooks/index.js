@@ -1,7 +1,3 @@
-import { useContext } from 'react'
-import { userContext } from '../stores/contexts'
+import { useContext } from 'react';
 
-// eslint-disable-next-line import/prefer-default-export
-export function useUser() {
-  return useContext(userContext)
-}
+

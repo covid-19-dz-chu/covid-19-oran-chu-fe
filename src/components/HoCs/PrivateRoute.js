@@ -1,23 +1,22 @@
-import React from 'react'
-import { Route, Redirect } from 'react-router-dom'
-import { observer } from 'mobx-react-lite'
-import { useUser } from '../../hooks'
+import React from 'react';
+import { Route, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-function PrivateRoute({ children, ...rest }) {
-  const userCtx = useUser()
 
+const mapStateToProps = (state) => ({
+  isAuthenticated:false,
+})
+
+function PrivateRoute({ component : Component , ...rest }) {
   return (
     <Route
       {...rest}
-      render={({ location }) =>
-        userCtx.isAuthenticated ? (
-          children
+      render={() =>
+        rest.isAuthenticated ? (
+         Component
         ) : (
           <Redirect
-            to={{
-              pathname: '/login',
-              state: { from: location }
-            }}
+            to="/login"
           />
         )
       }
@@ -25,4 +24,4 @@ function PrivateRoute({ children, ...rest }) {
   )
 }
 
-export default observer(PrivateRoute)
+export default connect(mapStateToProps , {})(PrivateRoute);

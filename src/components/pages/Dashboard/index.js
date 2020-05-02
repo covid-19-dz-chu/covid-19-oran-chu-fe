@@ -1,7 +1,26 @@
-import React from 'react'
+import React , { Component } from 'react';
 
-function Dashboard() {
-  return <h1>Welcome to the ugly dashboard</h1>
+
+
+
+
+const mapDispatchToProps = dispatch => ({
+  //
+})
+class Dashboard extends Component {
+  
+
+  componentWillMount(){
+    
+  }
+
+  render(){
+    return (
+      <div>
+        <h1>Dashbord Page</h1>
+      </div>
+    );
+  }
 }
 
-export default Dashboard
+export default Dashboard;
