@@ -11,6 +11,9 @@ import {
         case SIGNUP_PAGE_LOADED:
             return {
                 ...state,
+                email:'',
+                password:'',
+                confirmPassword:'',
             }
         
         case SIGNUP_REQUESTED:

@@ -2,7 +2,6 @@ import React , {Component} from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import authRequests from '../../../api/auth';
-import PropTypes from 'prop-types';
 import {
   UPDATE_FIELD_SIGNUP, 
   SIGNUP_PAGE_UNLOADED,
@@ -73,7 +72,7 @@ class Singup extends Component{
     
   render() {
     
-    const { email,password ,confirmPassword, errors }= this.props.signup;
+    const { email,password ,confirmPassword, errors } = this.props.signup;
     
     return (
       <div>
@@ -82,37 +81,30 @@ class Singup extends Component{
         <form onSubmit={this.onSubmit}>
           <fieldset>
             <label>Email</label>
-            <br/>
             <input  className="form-control form-control-lg"
                     type="text"
                     placeholder="Entrer votre email"
                     value={email}
                     onChange={(e) => this.props.onChangeField('email' , e.target.value)} />
-                    <small>{ errors.email ? errors.email: null}</small>
           </fieldset>
           <fieldset>
             <label>Mot de passe</label>
-            <br/>
             <input
                       className="form-control form-control-lg"
                       type="password"
                       placeholder="Entrer votre mot de passe"
                       value={password}
                       onChange={(e) => this.props.onChangeField('password' , e.target.value)} />
-            <small>{errors.password ? errors.password : null}</small>
           </fieldset>
           <fieldset>
             <label>Confirmation Mot de passe</label>
-            <br/>
             <input
                       className="form-control form-control-lg"
                       type="password"
                       placeholder="Confirmer votre mot de passe"
                       value={confirmPassword}
                       onChange={(e) => this.props.onChangeField('confirmPassword' , e.target.value)} />
-            <small>{errors.confirmPassword ? errors.confirmPassword : null}</small>
           </fieldset>
-          <br/>
           <button
             className="btn btn-lg btn-primary pull-xs-right"
             type="submit"

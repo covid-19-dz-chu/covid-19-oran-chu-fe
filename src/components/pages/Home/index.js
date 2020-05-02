@@ -4,7 +4,10 @@ import { connect } from 'react-redux';
 import {
   HOME_PAGE_LOADED
 } from '../../../constants/actionTypes';
+import homeRequest from '../../../api/home';
+const mapStateToProps = state => ({
 
+})
 
 const mapDispatchToProps = dispatch => ({
   onLoad: () => 
@@ -31,4 +34,4 @@ class Home extends Component {
   
 }
 
-export default connect(() => {} , mapDispatchToProps)(Home);
+export default connect(mapStateToProps , mapDispatchToProps)(Home);

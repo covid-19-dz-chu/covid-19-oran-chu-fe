@@ -1,19 +1,16 @@
 import axios from 'axios';
-import Axios from 'axios';
 
 const options = {
-  baseURL: 'https://covid-19-oran-chu.herokuapp.com',
-  token : '',
+  baseURL: 'http://covid-19-oran-chu.herokuapp.com',
 };
 
 
-const setToken = (token) => {
+const setTokenToRequest = (token) => {
   axios.interceptors.request.use((config) => {
     config.headers.Authorization = token;
   })
 }
 
-Axios.defaults.
 
 
 export default {
