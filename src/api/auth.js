@@ -8,7 +8,4 @@ export default {
   signup: () => {
     return requests.post('signup');
   },
-  setToken: (token) => {
-    localStorage.setItem('token', token);
-  },
 };

@@ -1,7 +1,5 @@
 import {
   APP_LOADING,
-  APP_LOADING_SUCCESS,
-  APP_LOADING_ERROR,
 } from '../utils/constants/actionTypes';
 
 export default function (state = {}, action) {

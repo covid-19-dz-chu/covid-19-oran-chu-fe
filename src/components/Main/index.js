@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Router, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { history, store } from '../../store';
 import GuestRoute from '../HoCs/GuestRoute';
 import PrivateRoute from '../HoCs/PrivateRoute';
 import Dashbord from '../pages/Dashboard';
@@ -10,11 +11,13 @@ import Signup from '../pages/Signup';
 import homeRequets from '../../api/home';
 import { APP_LOADING } from '../../utils/constants/actionTypes';
 
+
 const mapStateToProps = (state) => ({
   appName: state.app.appName,
   appLoaded: state.app.appLoaded,
   currentUser: state.auth.currentUser,
   token: state.auth.token,
+  redirect: state.app.redirect,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -23,11 +26,23 @@ const mapDispatchToProps = (dispatch) => ({
 
 class App extends Component {
   componentWillMount() {
-    const { token } = this.props;
+    this.props.onLoad(healthCheck, token ? token : null);
+    
+    const token = window.localStorage.getItem('jwt');
+    if (token) {
+      //set token on axios requests header
+       
+    }
     const healthCheck = homeRequets.healthCheck();
-    this.props.onLoad(healthCheck, token || null);
+    
+
   }
 
+  // componentWillReceiveProps(newProps){
+  //   if (newProps.redirect){
+  //     store.dispatch(push(nextProps.redirectTo));
+  //   }
+  // }
   reload() {
     const { token } = this.props;
     this.props.onLoad(homeRequets.healthCheck(), token || null);
@@ -38,14 +53,14 @@ class App extends Component {
       return (
         <div>
           <h1>{this.props.appName}</h1>
-          <BrowserRouter>
+          <Router history={history}>
             <Switch>
               <GuestRoute exact path="/" component={Home} />
               <GuestRoute exact path="/login" component={Login} />
               <GuestRoute exact path="/signup" component={Signup} />
               <PrivateRoute path="/dashbord" component={Dashbord} />
             </Switch>
-          </BrowserRouter>
+          </Router>
         </div>
       );
     }

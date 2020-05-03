@@ -16,7 +16,11 @@ export default (state = {}, action) => {
     case LOGIN_REQUESTED:
       return {
         ...state,
-        loading: true,
+        error: action.payload.error ? action.payload.error : null,
+        currentUser: action.payload.currentUser ? action.payload.currentUser : null,
+        redirectTo: action.payload.success ? '/dashbord' : null,
+        isAuthenticated: action.payload.currentUser ? true : false,
+        token: action.payload.token ? action.payload.token : null,
       };
 
     case UPDATE_FIELD_LOGIN:
