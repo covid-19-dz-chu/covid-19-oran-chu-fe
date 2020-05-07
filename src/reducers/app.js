@@ -1,4 +1,4 @@
-import { APP_LOADING } from '../utils/constants/actionTypes';
+import { APP_LOADING, LOGOUT_REQUESTED } from '../utils/constants/actionTypes';
 
 export default function (state = {}, action) {
   switch (action.type) {
@@ -10,6 +10,12 @@ export default function (state = {}, action) {
         currentUser : action.payload[1] ? { email : action.payload[1].email } : null,
         isAuthenticated : action.payload[1] ? true : false,
       };
+
+    case LOGOUT_REQUESTED:
+      return {
+        ...state,
+        isAuthenticated:action.payload?.success ? true : false,
+      }
     default:
       return state;
   }

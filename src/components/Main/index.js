@@ -12,9 +12,10 @@ import homeRequets from '../../api/home';
 import { app } from '../../api/firebase';
 import { 
   APP_LOADING,
-  AUTHENTICATE,
+  LOGOUT_REQUESTED,
 } from '../../utils/constants/actionTypes';
 import Navbar from '../features/Navbar';
+import { dispatch } from 'rxjs/internal/observable/pairs';
 
 
 const mapStateToProps = (state) => ({
@@ -27,12 +28,13 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onLoad: (payload) => dispatch({ type: APP_LOADING, payload }),
+  onLogout : (payload) => dispatch({type : LOGOUT_REQUESTED}),
 });
 
 class App extends Component {
   componentWillMount() {
     const token = window.localStorage.getItem('jwt');
-    let currentUser;
+    
     app.auth().onAuthStateChanged((user) => {
       if(user){
         this.props.onLoad(Promise.all([homeRequets.healthCheck(), user ]));
@@ -40,8 +42,11 @@ class App extends Component {
         this.props.onLoad(Promise.all([homeRequets.healthCheck(), null]));
       }
     });
-    
   }
+
+  componentWillUnmount(){
+    //
+  } 
 
   reload() {
     const { token } = this.props;
