@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Router, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { history, store } from '../../store';
+import { history } from '../../store';
 import GuestRoute from '../HoCs/GuestRoute';
 import PrivateRoute from '../HoCs/PrivateRoute';
 import Dashbord from '../pages/Dashboard';
@@ -9,7 +9,12 @@ import Home from '../pages/Home';
 import Login from '../pages/Login';
 import Signup from '../pages/Signup';
 import homeRequets from '../../api/home';
-import { APP_LOADING } from '../../utils/constants/actionTypes';
+import { app } from '../../api/firebase';
+import { 
+  APP_LOADING,
+  AUTHENTICATE,
+} from '../../utils/constants/actionTypes';
+import Navbar from '../features/Navbar';
 
 
 const mapStateToProps = (state) => ({
@@ -21,28 +26,23 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onLoad: (payload, token) => dispatch({ type: APP_LOADING, payload, token }),
+  onLoad: (payload) => dispatch({ type: APP_LOADING, payload }),
 });
 
 class App extends Component {
   componentWillMount() {
-    this.props.onLoad(healthCheck, token ? token : null);
-    
     const token = window.localStorage.getItem('jwt');
-    if (token) {
-      //set token on axios requests header
-       
-    }
-    const healthCheck = homeRequets.healthCheck();
+    let currentUser;
+    app.auth().onAuthStateChanged((user) => {
+      if(user){
+        this.props.onLoad(Promise.all([homeRequets.healthCheck(), user ]));
+      }else {
+        this.props.onLoad(Promise.all([homeRequets.healthCheck(), null]));
+      }
+    });
     
-
   }
 
-  // componentWillReceiveProps(newProps){
-  //   if (newProps.redirect){
-  //     store.dispatch(push(nextProps.redirectTo));
-  //   }
-  // }
   reload() {
     const { token } = this.props;
     this.props.onLoad(homeRequets.healthCheck(), token || null);
@@ -52,8 +52,9 @@ class App extends Component {
     if (this.props.appLoaded) {
       return (
         <div>
-          <h1>{this.props.appName}</h1>
           <Router history={history}>
+          <Navbar/>
+          <h1>{this.props.appName}</h1>
             <Switch>
               <GuestRoute exact path="/" component={Home} />
               <GuestRoute exact path="/login" component={Login} />

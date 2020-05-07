@@ -1,9 +1,14 @@
 import * as firebase from 'firebase';
 import { firebaseConfig } from '../utils/constants';
 
-
 // Initialize Firebase
 export const app = firebase.initializeApp(firebaseConfig);
+
+export const appAuth = app.auth;
+
+export const getCurrentUser = () => {
+  return app.auth().onAuthStateChanged;
+}
 
 // eslint-disable-next-line import/prefer-default-export
 export const loginWithEmailAndPassword = async (email, password) => {

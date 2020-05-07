@@ -1,6 +1,7 @@
 // APPLICATION
 export const APP_LOADING = 'APP_LOADING';
 
+
 // ASYNC
 export const ASYNC_START = 'ASYNC_START';
 export const ASYNC_END = 'ASYNC_END';
@@ -16,6 +17,7 @@ export const LOGIN_REQUESTED = 'LOGIN_REQUESTED';
 export const LOGIN_FAILED = 'LOGIN_FAILED';
 export const LOGIN_SUCCEDED = 'LOGIN_SUCCEDED';
 export const UPDATE_FIELD_LOGIN = 'UPDATE_FIELD_LOGIN';
+export const AUTHENTICATE = 'AUTHENTICATE';
 
 // SINGUP
 export const SIGNUP_PAGE_LOADED = 'SIGNUP_PAGE_LOADED';

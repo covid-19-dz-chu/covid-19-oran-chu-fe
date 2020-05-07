@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Proptypes from 'prop-types';
 import authRequests from '../../../api/auth';
 import {
   LOGIN_REQUESTED,
@@ -13,7 +12,6 @@ import {
 const mapStateToProps = (state) => {
   return {
     login: state.login,
-    authenticated: false,
   };
 };
 
