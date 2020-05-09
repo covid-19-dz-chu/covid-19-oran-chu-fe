@@ -1,8 +1,8 @@
+import { setTokenToRequest } from './api/request';
 import {
   ASYNC_START,
   ASYNC_END,
   LOGIN_REQUESTED,
-  SIGNUP_REQUESTED,
   LOGOUT_REQUESTED,
 } from './utils/constants/actionTypes';
 
@@ -48,15 +48,14 @@ const promiseMiddleware = (store) => (next) => (action) => {
   next(action);
 };
 
-const localStorageMiddleware = (store) => (next) => (action) => {
-  if (action.type === SIGNUP_REQUESTED || action.type === LOGIN_REQUESTED) {
-    if (!action.error) {
-      window.localStorage.setItem('Bearer', action.payload.token);
+const localStorageMiddleware = () => (next) => (action) => {
+  if (action.type === LOGIN_REQUESTED) {
+    if (action.payload.success) {
+      setTokenToRequest(action.payload.token);
     }
   } else if (action.type === LOGOUT_REQUESTED) {
-    window.localStorage.setItem('Bearer', '');
+    //remove token from header
   }
-
   next(action);
 };
 

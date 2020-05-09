@@ -16,7 +16,7 @@ export default (state = {}, action) => {
     case LOGIN_REQUESTED:
       return {
         ...state,
-        loading: true,
+        error: action.payload.error ? action.payload.error : null,
       };
 
     case UPDATE_FIELD_LOGIN:

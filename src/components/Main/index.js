@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Router, Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { history } from '../../store';
 import GuestRoute from '../HoCs/GuestRoute';
 import PrivateRoute from '../HoCs/PrivateRoute';
 import Dashbord from '../pages/Dashboard';
@@ -8,49 +9,61 @@ import Home from '../pages/Home';
 import Login from '../pages/Login';
 import Signup from '../pages/Signup';
 import homeRequets from '../../api/home';
-import { APP_LOADING } from '../../utils/constants/actionTypes';
+import { app } from '../../api/firebase';
+import { 
+  APP_LOADING,
+  LOGOUT_REQUESTED,
+} from '../../utils/constants/actionTypes';
+import Navbar from '../features/Navbar';
+
 
 const mapStateToProps = (state) => ({
   appName: state.app.appName,
   appLoaded: state.app.appLoaded,
-  currentUser: state.auth.currentUser,
-  token: state.auth.token,
+  currentUser: state.app.currentUser,
+  redirect: state.app.redirect,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onLoad: (payload, token) => dispatch({ type: APP_LOADING, payload, token }),
+  onLoad: (payload) => dispatch({ type: APP_LOADING, payload }),
+  onLogout : (payload) => dispatch({type : LOGOUT_REQUESTED}),
 });
 
 class App extends Component {
   componentWillMount() {
-    const { token } = this.props;
-    const healthCheck = homeRequets.healthCheck();
-    this.props.onLoad(healthCheck, token || null);
+    app.auth().onAuthStateChanged((user) => {
+      if(user){
+        this.props.onLoad(Promise.all([homeRequets.healthCheck(), user ]));
+      }else {
+        this.props.onLoad(Promise.all([homeRequets.healthCheck(), null]));
+      }
+    });
   }
-
+  
   reload() {
-    const { token } = this.props;
-    this.props.onLoad(homeRequets.healthCheck(), token || null);
+    //
   }
 
   render() {
     if (this.props.appLoaded) {
       return (
         <div>
+          <Router history={history}>
+          <Navbar/>
           <h1>{this.props.appName}</h1>
-          <BrowserRouter>
             <Switch>
-              <GuestRoute exact path="/" component={Home} />
+              <Route exact path="/" component={Home} />
               <GuestRoute exact path="/login" component={Login} />
               <GuestRoute exact path="/signup" component={Signup} />
               <PrivateRoute path="/dashbord" component={Dashbord} />
             </Switch>
-          </BrowserRouter>
+          </Router>
         </div>
       );
     }
     return (
       <div>
+        <h1>Loading..</h1>
         <button onClick={this.reload()}>Reload</button>
       </div>
     );

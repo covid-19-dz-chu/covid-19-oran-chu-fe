@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import homeRequest from '../../../api/home';
 import { HOME_PAGE_LOADED } from '../../../utils/constants/actionTypes';
 
 const mapStateToProps = (state) => ({});
@@ -10,10 +8,6 @@ const mapDispatchToProps = (dispatch) => ({
   onLoad: () => dispatch({ type: HOME_PAGE_LOADED }),
 });
 class Home extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentWillMount() {
     this.props.onLoad();
   }
@@ -22,8 +16,6 @@ class Home extends Component {
     return (
       <div>
         <h1>Home Page</h1>
-        <Link to="/login">Login</Link>
-        <Link to="/signup">Signup</Link>
       </div>
     );
   }

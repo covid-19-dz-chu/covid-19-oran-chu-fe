@@ -3,7 +3,7 @@ import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: false,
+  isAuthenticated: !!state.app.isAuthenticated,
 });
 
 function GuestRoute({ component: Component, ...rest }) {

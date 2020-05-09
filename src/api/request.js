@@ -5,11 +5,11 @@ const options = {
   baseURL: BASE_API_URL,
 };
 
-// const setTokenToRequest = (token) => {
-//   axios.interceptors.request.use((config) => {
-//     config.headers.Authorization = token;
-//   });
-// };
+export const setTokenToRequest = (token) => {
+  axios.interceptors.request.use((config) => {
+    config.headers.Authorization = `Bearer ${token}`;
+  });
+};
 
 export default {
   get: (url) => {
@@ -20,8 +20,5 @@ export default {
   },
   put: (url, body) => {
     return axios.put(`${options.baseURL}/${url}`, body);
-  },
-  delete: () => {
-    return axios.delete();
   },
 };
