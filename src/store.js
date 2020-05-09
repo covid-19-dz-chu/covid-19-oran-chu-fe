@@ -4,7 +4,7 @@ import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import { routerMiddleware } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
 import { promiseMiddleware, localStorageMiddleware } from './middleware';
-import reducer from './reducers';
+import reducer from './reducer';
 
 export const history = createHistory();
 

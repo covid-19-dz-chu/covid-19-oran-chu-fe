@@ -21,7 +21,4 @@ export default {
   put: (url, body) => {
     return axios.put(`${options.baseURL}/${url}`, body);
   },
-  delete: (url, body) => {
-    return axios.delete(`${options.baseURL}/${url}`, body);
-  },
 };

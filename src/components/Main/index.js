@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Router, Switch } from 'react-router-dom';
+import { Router, Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { history } from '../../store';
 import GuestRoute from '../HoCs/GuestRoute';
@@ -15,14 +15,12 @@ import {
   LOGOUT_REQUESTED,
 } from '../../utils/constants/actionTypes';
 import Navbar from '../features/Navbar';
-import { dispatch } from 'rxjs/internal/observable/pairs';
 
 
 const mapStateToProps = (state) => ({
   appName: state.app.appName,
   appLoaded: state.app.appLoaded,
-  currentUser: state.auth.currentUser,
-  token: state.auth.token,
+  currentUser: state.app.currentUser,
   redirect: state.app.redirect,
 });
 
@@ -33,8 +31,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 class App extends Component {
   componentWillMount() {
-    const token = window.localStorage.getItem('jwt');
-    
     app.auth().onAuthStateChanged((user) => {
       if(user){
         this.props.onLoad(Promise.all([homeRequets.healthCheck(), user ]));
@@ -43,14 +39,9 @@ class App extends Component {
       }
     });
   }
-
-  componentWillUnmount(){
-    //
-  } 
-
+  
   reload() {
-    const { token } = this.props;
-    this.props.onLoad(homeRequets.healthCheck(), token || null);
+    //
   }
 
   render() {
@@ -61,7 +52,7 @@ class App extends Component {
           <Navbar/>
           <h1>{this.props.appName}</h1>
             <Switch>
-              <GuestRoute exact path="/" component={Home} />
+              <Route exact path="/" component={Home} />
               <GuestRoute exact path="/login" component={Login} />
               <GuestRoute exact path="/signup" component={Signup} />
               <PrivateRoute path="/dashbord" component={Dashbord} />
@@ -72,6 +63,7 @@ class App extends Component {
     }
     return (
       <div>
+        <h1>Loading..</h1>
         <button onClick={this.reload()}>Reload</button>
       </div>
     );

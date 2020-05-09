@@ -8,7 +8,4 @@ export default {
   signup: () => {
     return requests.post('signup');
   },
-  authenticateToken: () => {
-    return;
-  }
 };

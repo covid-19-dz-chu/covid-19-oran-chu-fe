@@ -28,10 +28,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 class Login extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentWillMount() {
     this.props.onLoad();
   }

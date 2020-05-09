@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 
-const mapDispatchToProps = (dispatch) => ({
-  //
-});
+
 class Dashboard extends Component {
   componentWillMount() {}
 

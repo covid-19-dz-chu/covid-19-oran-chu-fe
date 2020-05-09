@@ -7,7 +7,7 @@ import {
 } from '../../../utils/constants/actionTypes';
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.app.isAuthenticated,
+  isAuthenticated: !!state.app.isAuthenticated,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -15,12 +15,13 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const Navbar = (props) => {
+  const isAuthenticated  = props.isAuthenticated;
 
   const logoutCall = () => {
     props.onLogout(logout());
   }
 
-  if (!props.isAuthenticated){
+  if (!isAuthenticated){
     return (
       <div>
           <Link to="/login">Login</Link>
@@ -28,14 +29,12 @@ const Navbar = (props) => {
       </div>
     )
   }
-  else {
-    return (
+  return (
       <div>
           <Link to="/dashbord">Dashbord</Link>
           <button onClick={logoutCall}>Logout</button>
       </div>
-    )
-  }
+  )
 }
 
 

@@ -1,4 +1,3 @@
-import { app } from './api/firebase';
 import { setTokenToRequest } from './api/request';
 import {
   ASYNC_START,
@@ -52,11 +51,10 @@ const promiseMiddleware = (store) => (next) => (action) => {
 const localStorageMiddleware = () => (next) => (action) => {
   if (action.type === LOGIN_REQUESTED) {
     if (action.payload.success) {
-      window.localStorage.setItem('jwt', action.payload.token);
       setTokenToRequest(action.payload.token);
     }
   } else if (action.type === LOGOUT_REQUESTED) {
-    window.localStorage.setItem('jwt', '');
+    //remove token from header
   }
   next(action);
 };

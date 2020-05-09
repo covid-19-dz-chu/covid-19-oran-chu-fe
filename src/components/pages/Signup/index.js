@@ -45,7 +45,7 @@ class Singup extends Component {
       errors.password = 'Veuillez introduire votre mot de passe';
     }
 
-    if (credentials.password != credentials.confirmPassword) {
+    if (credentials.password !== credentials.confirmPassword) {
       errors.confirmPassword = 'Votre confirmation de mot de passe est invalid';
     }
     return errors;
@@ -67,7 +67,7 @@ class Singup extends Component {
   };
 
   render() {
-    const { email, password, confirmPassword, errors } = this.props.signup;
+    const { email, password, confirmPassword } = this.props.signup;
 
     return (
       <div>
