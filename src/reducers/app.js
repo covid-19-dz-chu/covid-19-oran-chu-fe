@@ -10,14 +10,13 @@ export default function (state = {}, action) {
         currentUser : action.payload[1] ? { email : action.payload[1].email } : null,
         isAuthenticated : action.payload[1] ? true : false,
       };
-    
     case LOGIN_REQUESTED:
       return {
         ...state,
         currentUser: action.payload.currentUser,
         redirectTo: action.payload.success ? '/dashbord' : null,
         isAuthenticated: !!action.payload.currentUser,
-      }
+      };
     case LOGOUT_REQUESTED:
       return {
         ...state,

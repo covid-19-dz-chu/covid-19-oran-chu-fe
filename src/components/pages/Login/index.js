@@ -52,7 +52,7 @@ class Login extends Component {
         </small>
         <form onSubmit={this.onSubmit}>
           <fieldset>
-            <label>Email</label>
+            <label htmlFor="email">Email</label>
             <br />
             <input
               className="form-control form-control-lg"

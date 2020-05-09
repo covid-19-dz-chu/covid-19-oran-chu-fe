@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { history } from '../../store';
 import GuestRoute from '../HoCs/GuestRoute';
 import PrivateRoute from '../HoCs/PrivateRoute';
 import Dashbord from '../pages/Dashboard';
@@ -9,12 +8,13 @@ import Home from '../pages/Home';
 import Login from '../pages/Login';
 import Signup from '../pages/Signup';
 import homeRequets from '../../api/home';
+import Navbar from '../features/Navbar';
 import { app } from '../../api/firebase';
 import { 
   APP_LOADING,
   LOGOUT_REQUESTED,
 } from '../../utils/constants/actionTypes';
-import Navbar from '../features/Navbar';
+
 
 
 const mapStateToProps = (state) => ({
@@ -48,7 +48,7 @@ class App extends Component {
     if (this.props.appLoaded) {
       return (
         <div>
-          <Router history={history}>
+          <Router>
           <Navbar/>
           <h1>{this.props.appName}</h1>
             <Switch>

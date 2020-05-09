@@ -55,12 +55,7 @@ class Singup extends Component {
     ev.preventDefault();
     const errors = this.validate(this.props.signup);
     if (Object.keys(errors).length === 0) {
-      console.log({
-        email: this.props.signup.email,
-        password: this.props.signup.password,
-        confirmPassword: this.props.signup.confirmPassword,
-      });
-      // this.props.onSubmit(this.props.email , this.props.password);
+      this.props.onSubmit(this.props.email , this.props.password);
     } else {
       this.props.onValidateFields(errors);
     }
@@ -79,7 +74,7 @@ class Singup extends Component {
 
         <form onSubmit={this.onSubmit}>
           <fieldset>
-            <label>Email</label>
+            <label htmlFor="email">Email</label>
             <input
               className="form-control form-control-lg"
               type="text"
