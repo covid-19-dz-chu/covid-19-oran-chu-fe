@@ -27,6 +27,7 @@ const promiseMiddleware = (store) => (next) => (action) => {
         store.dispatch(action);
       },
       (error) => {
+        
         const currentState = store.getState();
         if (!skipTracking && currentState.viewChangeCounter !== currentView) {
           return;
@@ -39,7 +40,7 @@ const promiseMiddleware = (store) => (next) => (action) => {
         if (!action.skipTracking) {
           store.dispatch({ type: ASYNC_END, promise: action.payload });
         }
-
+        
         store.dispatch(action);
       }
     );
@@ -55,6 +56,7 @@ const localStorageMiddleware = () => (next) => (action) => {
     }
   } else if (action.type === LOGOUT_REQUESTED) {
     //remove token from header
+    
   }
   next(action);
 };

@@ -1,9 +1,7 @@
 import React , { Component } from "react";
 import { connect } from 'react-redux';
 import patientsRequest from '../../../../../api/patients';
-import {
-
-} from '../../../../../utils/constants/actionTypes';
+import { SYNTHESIS_PAGE_LOADED, SYNTHESIS_REQUESTED } from '../../../../../utils/constants/actionTypes';
 
 
 const mapStateToProps = (state) => ({
@@ -11,7 +9,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onSubmit: (payload) => dispatch({ type:null , payload }),
+  onLoad:() => dispatch({type:SYNTHESIS_PAGE_LOADED}),
+  onSubmit: (payload) => dispatch({ type:SYNTHESIS_REQUESTED , payload }),
   onChangeField: (key, value) => dispatch({ type: null, key, value }),
 })
 
@@ -20,16 +19,16 @@ class Synthesis extends Component {
     //
   }
 
-  validate(credentials) {
+  validate = (credentials) =>  {
     const errors = {};
     if (!credentials.synthesisNum) {
       errors.synthesisNum = 'Veuillez introduire votre billet de salle';
     }
-    
     return errors;
   }
   
-  onSubmit(ev){
+  onSubmit = (ev) => {
+    ev.preventDefault();
     console.log("submit");
     const errors = this.validate(this.props.synthesis);
     this.props.onSubmit(patientsRequest.getPatientByReference());
@@ -57,7 +56,7 @@ class Synthesis extends Component {
             className="btn btn-lg btn-primary pull-xs-right"
             type="submit"
           >
-            Sign in
+            Search
           </button>
         </form>
       </div>

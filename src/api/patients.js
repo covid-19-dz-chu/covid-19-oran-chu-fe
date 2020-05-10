@@ -6,6 +6,6 @@ export default {
     return requests.get(`patient/`);
   },
   getPatientByReference: (reference) => {
-    return requests.get(`patient/?billetSalle=${reference}`);
+    return requests.get(`patient/?billetSalle=JFKZJFZIJFI3`);
   },
 };
