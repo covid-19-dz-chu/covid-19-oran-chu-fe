@@ -8,7 +8,7 @@ import Home from '../pages/Home';
 import Login from '../pages/Login';
 import Signup from '../pages/Signup';
 import homeRequets from '../../api/home';
-import { setTokenToRequest } from '../../api/request';
+import { setTokenRequest } from '../../api/request';
 import Navbar from '../features/Navbar';
 import { app } from '../../api/firebase';
 import { 
@@ -36,7 +36,7 @@ class App extends Component {
       if(user){
         this.props.onLoad(Promise.all([homeRequets.healthCheck(), user ]));
         user.getIdToken().then((token) => {
-          setTokenToRequest(token);
+          setTokenRequest(token);
         })
       }else {
         this.props.onLoad(Promise.all([homeRequets.healthCheck(), null]));

@@ -1,4 +1,4 @@
-import { setTokenToRequest } from './api/request';
+import { removeTokenRequest } from './api/request';
 import {
   ASYNC_START,
   ASYNC_END,
@@ -35,7 +35,7 @@ const promiseMiddleware = (store) => (next) => (action) => {
         console.warn('ERROR', error);
 
         action.error = true;
-        action.payload = error;
+        action.payload = error; // change to a light weight error 
 
         if (!action.skipTracking) {
           store.dispatch({ type: ASYNC_END, promise: action.payload });
@@ -52,11 +52,10 @@ const promiseMiddleware = (store) => (next) => (action) => {
 const localStorageMiddleware = () => (next) => (action) => {
   if (action.type === LOGIN_REQUESTED) {
     if (action.payload.success) {
-      setTokenToRequest(action.payload.token);
+      //setTokenRequest(action.payload.token);
     }
   } else if (action.type === LOGOUT_REQUESTED) {
-    //remove token from header
-    
+    removeTokenRequest();    
   }
   next(action);
 };

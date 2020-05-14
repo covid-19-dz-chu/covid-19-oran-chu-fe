@@ -1,11 +1,10 @@
 import requests from './request';
-import { request } from 'http';
 
 export default {
   getPatients: () => {
     return requests.get(`patient/`);
   },
   getPatientByReference: (reference) => {
-    return requests.get(`patient/?billetSalle=JFKZJFZIJFI3`);
+    return requests.get(`api/v1/patient/?billetSalle=${reference}`);
   },
 };

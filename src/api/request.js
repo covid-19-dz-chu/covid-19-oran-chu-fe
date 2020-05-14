@@ -5,10 +5,12 @@ const options = {
   baseURL: BASE_API_URL,
 };
 
-export const setTokenToRequest = (token) => {
-  axios.interceptors.request.use((config) => {
-    config.headers.Authorization = `Bearer ${token}`;
-  });
+export const setTokenRequest = (token) => {
+  axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+};
+
+export const removeTokenRequest = () => {
+  axios.defaults.headers.common["Authorization"] = '';
 };
 
 export default {
