@@ -3,7 +3,7 @@ import {
   //   SIGNUP_PAGE_UNLOADED,
   UPDATE_FIELD_SIGNUP,
   SIGNUP_REQUESTED,
-  VALIDATE_FIELDS_SIGNUP,
+  VALIDATE_FIELDS,
 } from '../utils/constants/actionTypes';
 
 export default (state = {}, action) => {
@@ -23,10 +23,10 @@ export default (state = {}, action) => {
         loading: true,
       };
 
-    case VALIDATE_FIELDS_SIGNUP:
+    case VALIDATE_FIELDS:
       return {
         ...state,
-        errors: action.payload.errors ? action.payload.errors : {},
+        formErrors: action.payload.errors ? action.payload.errors : {},
       };
     case UPDATE_FIELD_SIGNUP:
       return {

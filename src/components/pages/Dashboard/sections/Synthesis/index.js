@@ -35,7 +35,6 @@ class Synthesis extends Component {
     if (Object.keys(errors).length === 0){
       console.log('synthesis number ' , this.props.synthesis.synthesisNum);
       this.props.onSubmit(patientsRequest.getPatientByReference(this.props.synthesis.synthesisNum));
-    
     }
   }
 
@@ -44,6 +43,7 @@ class Synthesis extends Component {
     return (
       <div>
         <h1>Synthesis</h1>
+        <strong>{ }</strong>
         <form onSubmit={this.onSubmit}>
           <fieldset>
             <label htmlFor="patientNumber">

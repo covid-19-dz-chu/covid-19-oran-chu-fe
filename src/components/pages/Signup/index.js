@@ -7,7 +7,7 @@ import {
   SIGNUP_PAGE_UNLOADED,
   SIGNUP_REQUESTED,
   SIGNUP_PAGE_LOADED,
-  VALIDATE_FIELDS_SIGNUP,
+  VALIDATE_FIELDS,
 } from '../../../utils/constants/actionTypes';
 
 const mapStateToProps = (state) => {
@@ -21,7 +21,7 @@ const mapDispatchToProps = (dispatch) => ({
   onChangeField: (key, value) =>
     dispatch({ type: UPDATE_FIELD_SIGNUP, key, value }),
   onValidateFields: (errors) =>
-    dispatch({ type: VALIDATE_FIELDS_SIGNUP, payload: errors }),
+    dispatch({ type: VALIDATE_FIELDS, payload: { errors } }),
   onSubmit: (username, password) =>
     dispatch({
       type: SIGNUP_REQUESTED,
@@ -31,7 +31,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 class Singup extends Component {
-  componentDidMount() {
+  componentWillMount() {
     this.props.onLoad();
   }
 
