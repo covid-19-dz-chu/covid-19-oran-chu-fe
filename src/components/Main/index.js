@@ -11,10 +11,9 @@ import homeRequets from '../../api/home';
 import { setTokenRequest } from '../../api/request';
 import Navbar from '../features/Navbar';
 import { app } from '../../api/firebase';
-import { 
-  APP_LOADING,
-  LOGOUT_REQUESTED,
-} from '../../utils/constants/actionTypes';
+import { APP_LOADING , LOGOUT_REQUESTED } from '../../utils/constants/actionTypes';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../../styles/style.css';
 
 
 
@@ -27,7 +26,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onLoad: (payload) => dispatch({ type: APP_LOADING, payload }),
-  onLogout : (payload) => dispatch({type : LOGOUT_REQUESTED}),
+  onLogout : () => dispatch({type : LOGOUT_REQUESTED}),
 });
 
 class App extends Component {
@@ -42,7 +41,6 @@ class App extends Component {
         this.props.onLoad(Promise.all([homeRequets.healthCheck(), null]));
       }
     });
-    
   }
   
   reload() {
@@ -55,13 +53,16 @@ class App extends Component {
         <div>
           <Router>
           <Navbar/>
-          <h1>{this.props.appName}</h1>
+          <div className="container">
+            <h1>{this.props.appName}</h1>
             <Switch>
               <Route exact path="/" component={Home} />
               <GuestRoute exact path="/login" component={Login} />
               <GuestRoute exact path="/signup" component={Signup} />
               <PrivateRoute path="/dashbord" component={Dashbord} />
             </Switch>
+          </div>
+          
           </Router>
         </div>
       );

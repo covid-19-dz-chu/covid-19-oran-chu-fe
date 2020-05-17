@@ -3,7 +3,7 @@ import {
   //   SIGNUP_PAGE_UNLOADED,
   UPDATE_FIELD_SIGNUP,
   SIGNUP_REQUESTED,
-  VALIDATE_FIELDS,
+  VALIDATE_FIELDS_SIGNUP,
 } from '../utils/constants/actionTypes';
 
 export default (state = {}, action) => {
@@ -21,12 +21,13 @@ export default (state = {}, action) => {
       return {
         ...state,
         loading: true,
+        submitErrors: action.error ? action.payload.response.data : null,
       };
 
-    case VALIDATE_FIELDS:
+    case VALIDATE_FIELDS_SIGNUP:
       return {
         ...state,
-        formErrors: action.payload.errors ? action.payload.errors : {},
+        formErrors: action.payload.errors || null,
       };
     case UPDATE_FIELD_SIGNUP:
       return {
@@ -37,3 +38,4 @@ export default (state = {}, action) => {
       return state;
   }
 };
+ 

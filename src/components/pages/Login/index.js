@@ -8,6 +8,7 @@ import {
   LOGIN_PAGE_LOADED,
   UPDATE_FIELD_LOGIN,
   VALIDATE_FIELDS,
+  VALIDATE_FIELDS_LOGIN,
 } from '../../../utils/constants/actionTypes';
 
 const mapStateToProps = (state) => {
@@ -21,7 +22,7 @@ const mapDispatchToProps = (dispatch) => ({
   onChangeField: (key, value) =>
     dispatch({ type: UPDATE_FIELD_LOGIN, key, value }),
   onValidateFields: (errors) =>
-    dispatch({ type: VALIDATE_FIELDS, payload: errors }),
+    dispatch({ type: VALIDATE_FIELDS_LOGIN, payload: {errors}}),
   onSubmit: (username, password) =>
     dispatch({
       type: LOGIN_REQUESTED,
@@ -53,16 +54,16 @@ class Login extends Component {
 
   onSubmit = (ev) => {
     ev.preventDefault();
-    const errors = this.validate(this.props.login);
+    const errors = this.validate( this.props.login );
     if (Object.keys(errors).length === 0) {
-      this.props.onSubmit(this.props.email , this.props.password);
+      this.props.onSubmit( this.props.login.email , this.props.login.password );
     } else {
       this.props.onValidateFields(errors);
     }
   };
 
   render() {
-    const { email, password } = this.props.login;
+    const { email, password , formErrors , submitErrors } = this.props.login;
 
     return (
       <div>
@@ -70,7 +71,13 @@ class Login extends Component {
         <small>
           Si vous etes pas inscris ? <Link to="/signup">Inscrivez vous</Link>
         </small>
-        <strong>{(this.props.login.submitErrors && this.props.login.submitErrors.message) ? this.props.login.submitErrors.message : null}</strong>
+        <div>
+          <strong>{
+            ( submitErrors && submitErrors.message ) ? 
+            submitErrors.message : 
+            null
+          }</strong>
+        </div>
         <form onSubmit={this.onSubmit}>
           <fieldset>
             <label htmlFor="email">Email</label>
@@ -85,6 +92,8 @@ class Login extends Component {
               }
             />
           </fieldset>
+
+          <small>{(formErrors && formErrors.email ) ? formErrors.email : '' }</small>
           <fieldset>
             <label>Password</label>
             <br />
@@ -98,6 +107,7 @@ class Login extends Component {
               }
             />
           </fieldset>
+          <small>{(formErrors && formErrors.password ) ? formErrors.password : '' }</small>
           <br />
           <button
             className="btn btn-lg btn-primary pull-xs-right"

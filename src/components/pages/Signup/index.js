@@ -7,7 +7,7 @@ import {
   SIGNUP_PAGE_UNLOADED,
   SIGNUP_REQUESTED,
   SIGNUP_PAGE_LOADED,
-  VALIDATE_FIELDS,
+  VALIDATE_FIELDS_SIGNUP,
 } from '../../../utils/constants/actionTypes';
 
 const mapStateToProps = (state) => {
@@ -21,11 +21,11 @@ const mapDispatchToProps = (dispatch) => ({
   onChangeField: (key, value) =>
     dispatch({ type: UPDATE_FIELD_SIGNUP, key, value }),
   onValidateFields: (errors) =>
-    dispatch({ type: VALIDATE_FIELDS, payload: { errors } }),
-  onSubmit: (username, password) =>
+    dispatch({ type: VALIDATE_FIELDS_SIGNUP, payload: { errors } }),
+  onSubmit: (email, password) =>
     dispatch({
       type: SIGNUP_REQUESTED,
-      payload: authRequests.signup(username, password),
+      payload: authRequests.signup(email, password),
     }),
   onUnload: () => dispatch({ type: SIGNUP_PAGE_UNLOADED }),
 });
@@ -55,23 +55,25 @@ class Singup extends Component {
     ev.preventDefault();
     const errors = this.validate(this.props.signup);
     if (Object.keys(errors).length === 0) {
-      this.props.onSubmit(this.props.email , this.props.password);
+      this.props.onSubmit(this.props.signup.email ,this.props.signup.email);
     } else {
       this.props.onValidateFields(errors);
     }
   };
 
   render() {
-    const { email, password, confirmPassword } = this.props.signup;
+    const { email, password, confirmPassword, submitErrors, formErrors} = this.props.signup;
 
     return (
       <div>
-        <h1>Inscription</h1>
+        <h3>Inscription</h3>
         <small>
           Si vous etes inscris ?{' '}
           <Link to="/login">Veuillez vous connecter</Link>
         </small>
-
+        <div>
+        <strong> {( submitErrors && submitErrors.message ) ? submitErrors.message : null} </strong>
+        </div>
         <form onSubmit={this.onSubmit}>
           <fieldset>
             <label htmlFor="email">Email</label>
@@ -85,6 +87,8 @@ class Singup extends Component {
               }
             />
           </fieldset>
+          <small>{(formErrors && formErrors.email ) ? formErrors.email : '' }</small>
+
           <fieldset>
             <label>Mot de passe</label>
             <input
@@ -97,6 +101,7 @@ class Singup extends Component {
               }
             />
           </fieldset>
+          <small>{(formErrors && formErrors.password ) ? formErrors.password : '' }</small>
           <fieldset>
             <label>Confirmation Mot de passe</label>
             <input
@@ -109,6 +114,8 @@ class Singup extends Component {
               }
             />
           </fieldset>
+          <small>{(formErrors && formErrors.confirmPassword ) ? formErrors.confirmPassword : '' }</small>
+          <br/>
           <button
             className="btn btn-lg btn-primary pull-xs-right"
             type="submit"

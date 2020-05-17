@@ -1,8 +1,8 @@
 import {
   LOGIN_PAGE_LOADED,
   UPDATE_FIELD_LOGIN,
-  VALIDATE_FIELDS,
   LOGIN_REQUESTED,
+  VALIDATE_FIELDS_LOGIN,
 } from '../utils/constants/actionTypes';
 
 export default (state = {}, action) => {
@@ -17,7 +17,8 @@ export default (state = {}, action) => {
     case LOGIN_REQUESTED:
       return {
         ...state,
-        submitErrors: action.payload.errors || null,
+        formErrors: null,
+        submitErrors: action.payload.error || null,
       };
 
     case UPDATE_FIELD_LOGIN:
@@ -25,9 +26,10 @@ export default (state = {}, action) => {
         ...state,
         [action.key]: action.value,
       };
-    case VALIDATE_FIELDS:
+    case VALIDATE_FIELDS_LOGIN:
       return {
         ...state,
+        submitErrors: null,
         formErrors: action.payload.errors || null,
       };
     default:

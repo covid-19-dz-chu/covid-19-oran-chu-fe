@@ -5,7 +5,7 @@ export default {
   login: async (email, password) => {
     return loginWithEmailAndPassword(email, password);
   },
-  signup: () => {
-    return requests.post('signup');
+  signup: (email, password) => {
+    return requests.post('api/v1/auth/signup' , { email ,password });
   },
 };
