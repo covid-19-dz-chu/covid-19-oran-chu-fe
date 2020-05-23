@@ -1,9 +1,9 @@
 import React , { Component } from "react";
 import { connect } from 'react-redux';
-import patientsRequest from '../../../../../api/patients';
-import { SYNTHESIS_PAGE_LOADED, SYNTHESIS_REQUESTED, UPDATE_FIELD_SYNTHESIS } from '../../../../../utils/constants/actionTypes';
+import patientsRequest from '../../../api/patients';
+import { SYNTHESIS_PAGE_LOADED, SYNTHESIS_REQUESTED, UPDATE_FIELD_SYNTHESIS } from '../../../utils/constants/actionTypes';
 import SynthesisBody from './synthesis-body';
-import '../../styles/synthesis.css';
+import './styles/synthesis.css';
 
 
 const mapStateToProps = (state) => ({
@@ -48,7 +48,7 @@ class Synthesis extends Component {
           <form onSubmit={this.onSubmit}>
             <br/>
             <fieldset>  
-              <label htmlFor="patientNumber">Entrer le billet de salle</label>
+              <label className="" htmlFor="patientNumber">Entrer le billet de salle</label>
               <div className="row">
                   <div className="col-10">
                     <input

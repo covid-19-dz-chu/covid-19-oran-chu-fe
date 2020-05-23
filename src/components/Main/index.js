@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Router, Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { ConnectedRouter } from 'react-router-redux';
 import GuestRoute from '../HoCs/GuestRoute';
 import PrivateRoute from '../HoCs/PrivateRoute';
 import Dashbord from '../pages/Dashboard';
@@ -14,6 +15,10 @@ import { app } from '../../api/firebase';
 import { APP_LOADING , LOGOUT_REQUESTED } from '../../utils/constants/actionTypes';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../styles/style.css';
+import SynthesisDoc from '../pages/SynthesisDoc';
+import Synthesis from '../pages/Synthesis';
+import { history } from '../../store';
+import Spinner from 'react-bootstrap/Spinner'
 
 
 
@@ -51,7 +56,7 @@ class App extends Component {
     if (this.props.appLoaded) {
       return (
         <div>
-          <Router>
+          <Router history={history}>
           <Navbar/>
           <div className="container">
             <h1>{this.props.appName}</h1>
@@ -59,18 +64,25 @@ class App extends Component {
               <Route exact path="/" component={Home} />
               <GuestRoute exact path="/login" component={Login} />
               <GuestRoute exact path="/signup" component={Signup} />
-              <PrivateRoute path="/dashbord" component={Dashbord} />
+              <PrivateRoute exact path="/dashbord" component={Dashbord} />
+              <PrivateRoute exact path="/dashbord/search" component={Synthesis}/>
+              <PrivateRoute exact path="/dashbord/document/:id" component={SynthesisDoc}/>
             </Switch>
           </div>
-          
           </Router>
         </div>
       );
     }
     return (
-      <div>
-        <h1>Loading..</h1>
-        <button onClick={this.reload()}>Reload</button>
+      <div className="text-center">
+        <h1>CHUO gestion des patients</h1>
+        <Spinner animation="border" role="status">
+          <span className="sr-only">Loading...</span>
+        </Spinner>
+        <div>
+          <button onClick={this.reload()}>Reload</button>
+        </div>
+        
       </div>
     );
   }

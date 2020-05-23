@@ -7,9 +7,9 @@ import {
   LOGIN_PAGE_UNLOADED,
   LOGIN_PAGE_LOADED,
   UPDATE_FIELD_LOGIN,
-  VALIDATE_FIELDS,
   VALIDATE_FIELDS_LOGIN,
 } from '../../../utils/constants/actionTypes';
+import '../../../styles/forms.css';
 
 const mapStateToProps = (state) => {
   return {
@@ -80,7 +80,7 @@ class Login extends Component {
         </div>
         <form onSubmit={this.onSubmit}>
           <fieldset>
-            <label htmlFor="email">Email</label>
+            <label className="form-label" htmlFor="email">Email</label>
             <br />
             <input
               className="form-control form-control-lg"
@@ -95,7 +95,7 @@ class Login extends Component {
 
           <small>{(formErrors && formErrors.email ) ? formErrors.email : '' }</small>
           <fieldset>
-            <label>Password</label>
+            <label className="form-label">Password</label>
             <br />
             <input
               className="form-control form-control-lg"

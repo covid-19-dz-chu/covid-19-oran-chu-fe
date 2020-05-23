@@ -30,19 +30,22 @@ return (
               { !isAuthenticated ? (
                 <>
                 <BNav.Link>
-                  <Link to="/login">Login</Link>
+                  <Link to="/login">Se connecter</Link>
                 </BNav.Link>
                 <BNav.Link>
-                  <Link to="/signup">Signup</Link>
+                  <Link to="/signup">Inscription</Link>
                 </BNav.Link>
                 </>
               ) : (
                 <>
                   <BNav.Link>
-                  <Link to="/dashbord">Dashbord</Link>
+                  <Link to="/dashbord">Bureau</Link>
                   </BNav.Link>
                   <BNav.Link>
-                    <Link onClick={logoutCall}>Logout</Link>
+                  <Link to="/dashbord/search">Recherche</Link>
+                  </BNav.Link>
+                  <BNav.Link>
+                    <Link onClick={logoutCall}>Deconnecter</Link>
                   </BNav.Link>
                 </>
               )}

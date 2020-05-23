@@ -3,6 +3,7 @@ import {
   SYNTHESIS_REQUESTED,
   SYNTHESIS_PAGE_UNLOADED,
   UPDATE_FIELD_SYNTHESIS,
+  SYNTHESISDOC_PAGE_LOADED,
 } from '../utils/constants/actionTypes';
 
 export default (state = {}, action) => {
@@ -21,6 +22,11 @@ export default (state = {}, action) => {
     case SYNTHESIS_PAGE_UNLOADED:
       return {
         ...state,
+      };
+    case SYNTHESISDOC_PAGE_LOADED:
+      return {
+        ...state,
+        synthesisDoc: action.payload.data || null,
       };
     case UPDATE_FIELD_SYNTHESIS:
       return {

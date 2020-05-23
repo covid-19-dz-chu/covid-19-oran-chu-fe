@@ -9,6 +9,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 class Home extends Component {
   componentWillMount() {
+    console.log(this.props);
     this.props.onLoad();
   }
 

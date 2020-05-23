@@ -9,6 +9,7 @@ import {
   SIGNUP_PAGE_LOADED,
   VALIDATE_FIELDS_SIGNUP,
 } from '../../../utils/constants/actionTypes';
+import '../../../styles/forms.css';
 
 const mapStateToProps = (state) => {
   return {
@@ -76,7 +77,7 @@ class Singup extends Component {
         </div>
         <form onSubmit={this.onSubmit}>
           <fieldset>
-            <label htmlFor="email">Email</label>
+            <label className="form-label" htmlFor="email">Email</label>
             <input
               className="form-control form-control-lg"
               type="text"
@@ -90,7 +91,7 @@ class Singup extends Component {
           <small>{(formErrors && formErrors.email ) ? formErrors.email : '' }</small>
 
           <fieldset>
-            <label>Mot de passe</label>
+            <label className="form-label" htmlFor="motDePasse">Mot de passe</label>
             <input
               className="form-control form-control-lg"
               type="password"
@@ -103,7 +104,7 @@ class Singup extends Component {
           </fieldset>
           <small>{(formErrors && formErrors.password ) ? formErrors.password : '' }</small>
           <fieldset>
-            <label>Confirmation Mot de passe</label>
+            <label className="form-label" htmlFor="confirmMotDePasse">Confirmation Mot de passe</label>
             <input
               className="form-control form-control-lg"
               type="password"
