@@ -4,6 +4,7 @@ import {
   SYNTHESIS_PAGE_UNLOADED,
   UPDATE_FIELD_SYNTHESIS,
   SYNTHESISDOC_PAGE_LOADED,
+  ASYNC_START,
 } from '../utils/constants/actionTypes';
 
 export default (state = {}, action) => {
@@ -11,6 +12,7 @@ export default (state = {}, action) => {
     case SYNTHESIS_PAGE_LOADED:
       return {
         ...state,
+        loading: false,
         synthesisNum: '',
       };
     case SYNTHESIS_REQUESTED:
@@ -18,6 +20,16 @@ export default (state = {}, action) => {
         ...state,
         synthesisList: action.payload.data,
         formErrors: action.payload.error,
+      };
+    case ASYNC_START:
+      if(action.subtype === SYNTHESIS_PAGE_LOADED){
+        return {
+          ...state,
+          loading: true,
+        };
+      }
+      return {
+        ...state,
       };
     case SYNTHESIS_PAGE_UNLOADED:
       return {

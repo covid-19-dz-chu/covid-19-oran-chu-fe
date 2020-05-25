@@ -80,7 +80,7 @@ class App extends Component {
           <span className="sr-only">Loading...</span>
         </Spinner>
         <div>
-          <button onClick={this.reload()}>Reload</button>
+          <button className="btn btn-lg btn-primary pull-xs-right" onClick={this.reload()}>Reload</button>
         </div>
         
       </div>

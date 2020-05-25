@@ -10,6 +10,9 @@ import {
   VALIDATE_FIELDS_LOGIN,
 } from '../../../utils/constants/actionTypes';
 import '../../../styles/forms.css';
+import Spinner from 'react-bootstrap/Spinner';
+import Alert from 'react-bootstrap/Alert';
+
 
 const mapStateToProps = (state) => {
   return {
@@ -67,17 +70,15 @@ class Login extends Component {
 
     return (
       <div>
-        <h1>Se connecter</h1>
+        <h4>Se connecter</h4>
         <small>
           Si vous etes pas inscris ? <Link to="/signup">Inscrivez vous</Link>
         </small>
-        <div>
-          <strong>{
-            ( submitErrors && submitErrors.message ) ? 
-            submitErrors.message : 
-            null
-          }</strong>
-        </div>
+        {
+          ( submitErrors && submitErrors.message ) ?
+          ( <Alert variant='danger'> { submitErrors.message }</Alert> ): 
+          null
+        }
         <form onSubmit={this.onSubmit}>
           <fieldset>
             <label className="form-label" htmlFor="email">Email</label>
@@ -91,9 +92,9 @@ class Login extends Component {
                 this.props.onChangeField('email', e.target.value)
               }
             />
+            <small className="full-width form-error">{(formErrors && formErrors.email ) ? formErrors.email : '' }</small>
           </fieldset>
 
-          <small>{(formErrors && formErrors.email ) ? formErrors.email : '' }</small>
           <fieldset>
             <label className="form-label">Password</label>
             <br />
@@ -106,15 +107,26 @@ class Login extends Component {
                 this.props.onChangeField('password', e.target.value)
               }
             />
+            <small className="full-width form-error">{(formErrors && formErrors.password ) ? formErrors.password : '' }</small>
           </fieldset>
-          <small>{(formErrors && formErrors.password ) ? formErrors.password : '' }</small>
+          
           <br />
           <button
             className="btn btn-lg btn-primary pull-xs-right"
             type="submit"
-          >
-            Sign in
-          </button>
+          > 
+              {this.props.login.loading ? (
+                <Spinner
+                as="span"
+                animation="border"
+                size="sm"
+                role="status"
+                aria-hidden="true"
+              />
+              ): (
+                <p>Sign in</p>
+              )}
+            </button>
         </form>
       </div>
     );

@@ -3,6 +3,8 @@ import {
   UPDATE_FIELD_LOGIN,
   LOGIN_REQUESTED,
   VALIDATE_FIELDS_LOGIN,
+  ASYNC_START,
+  ASYNC_END,
 } from '../utils/constants/actionTypes';
 
 export default (state = {}, action) => {
@@ -10,17 +12,27 @@ export default (state = {}, action) => {
     case LOGIN_PAGE_LOADED:
       return {
         ...state,
-        laoding: false,
+        loading: false,
         email: '',
         password: '',
+      };
+    case ASYNC_START:
+      if( action.subtype === LOGIN_REQUESTED ){
+        return {
+          ...state,
+          loading:true,
+        };
+      }
+      return {
+        ...state,
       };
     case LOGIN_REQUESTED:
       return {
         ...state,
         formErrors: null,
+        loading: false,
         submitErrors: action.payload.error || null,
       };
-
     case UPDATE_FIELD_LOGIN:
       return {
         ...state,

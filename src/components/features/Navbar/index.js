@@ -42,10 +42,10 @@ return (
                   <Link to="/dashbord">Bureau</Link>
                   </BNav.Link>
                   <BNav.Link>
-                  <Link to="/dashbord/search">Recherche</Link>
+                    <Link to="/dashbord/search">Recherche</Link>
                   </BNav.Link>
                   <BNav.Link>
-                    <Link onClick={logoutCall}>Deconnecter</Link>
+                    <Link to="/" onClick={logoutCall}>Deconnecter</Link>
                   </BNav.Link>
                 </>
               )}

@@ -1,27 +1,28 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Spinner from 'react-bootstrap/Spinner';
 import './styles/synthesis.css';
 
 
 const mapStateToProps = (state) => ({
-  synthesisList: state.synthesis.synthesisList || null,
+  synthesis: state.synthesis,
 });
 
 const SynthesisBody = (props) => {
-  const synthesis = props.synthesisList;
-    if(synthesis && synthesis.data.length === 0) {
+  const { synthesisList , loading } = props.synthesis;
+    if(synthesisList && synthesisList.data.length === 0) {
       return (
         <div>
           <small>Aucun patient trouvé.</small>
         </div>
       )
     }
-    else if(synthesis && synthesis.data ) {
+    else if(synthesisList && synthesisList.data ) {
       return (
         <div>
         {
-          synthesis && synthesis.data.map((synthesis , key) => {
+          synthesisList && synthesisList.data.map((synthesis , key) => {
             return (
               <div className="synthesis-body" key={key}>
                 <h1>{ synthesis.syntheseuniteHospitalisation }</h1>
@@ -36,6 +37,15 @@ const SynthesisBody = (props) => {
         }
       </div>
       )  
+    }
+    else if(loading) {
+      return (
+        <div className="text-center">
+          <Spinner animation="border" role="status">
+            <span className="sr-only">Loading...</span>
+          </Spinner>
+        </div>
+      )
     }
     return (
       <div>

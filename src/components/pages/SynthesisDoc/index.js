@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import ReactPDF from '@react-pdf/renderer';
-import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 import patientRequest from '../../../api/patients';
 import { SYNTHESISDOC_PAGE_LOADED } from '../../../utils/constants/actionTypes';
+import Personal from './components/Personal';
 
 const mapStateToProps = (state) => ({
   synthesisDoc : state.synthesis.synthesisDoc || null,
@@ -31,55 +30,129 @@ class SynthesisDoc extends Component {
 
   render() {
     const synthesisDoc = this.props.synthesisDoc;
-
-    if(synthesisDoc && synthesisDoc.data) {
+    
+    if (synthesisDoc && synthesisDoc.data) {
       return (
-        <div className="container-float">
-          <div className="row">
-            <div className="col-6">
-              <p><strong>Nom : </strong> {synthesisDoc.data.nom}</p>
-              <p><strong>Prenom : </strong> {synthesisDoc.data.prenom}</p>
-              <p><strong>Age : </strong> {synthesisDoc.data.age}</p>
-              <p><strong>Mise a jour : </strong> {synthesisDoc.data.updatedAt}</p>
+        <div className="container">
+            <div className="text-center">
+              <p>Date : {new Date().toDateString()}</p>
             </div>
-            <div className="col-6">
+            <Personal/>
+            <div>
+              <h3>Radiologies :</h3>
+              <hr/>
+              { synthesisDoc.data && synthesisDoc.data.radiologics.map((radiologic) => {
+                  return (
+                    <div className="row"> 
+                      <div className="col-4">
+                        <p><strong>Date:</strong> {new Date(radiologic.date).toDateString()}</p>
+                      </div>
+                      <div className="col-4">
+                        <p><strong>Ajouté par: </strong> - </p>
+                      </div>
+                      <div className="col-4">
+                        <p><strong>Type radiologie: </strong> {radiologic.type}</p>
+                      </div>
+                      <div className="col-12">
+                        <p><strong>Observation: </strong>{radiologic.observation}</p>
+                      </div>
+                    </div>
+                  )
+                })}
               
             </div>
-          </div>
-          <button className="btn btn-lg btn-primary pull-lg-right full-width" onClick={this.print}>Telecharger le document PDF</button>
+            <div>
+              <h3>Ecgs :</h3>
+              <hr/>
+              <div className="row">
+              { synthesisDoc.data && synthesisDoc.data.ecgs.map((ecg) => {
+                return (
+                  <div>
+                    <div className="col-4">
+                    {}
+                    </div>
+                    <div className="col-4">
+                    {}
+                    </div>
+                    <div className="col-4">
+                    {}
+                    </div>
+                  </div>
+                )
+              })}
+              </div>
+            <div>
+              <h3>Biologiques :</h3>
+              <hr/>
+              { synthesisDoc.data && synthesisDoc.data.biologics.map((biologic , key) => {
+                return (
+                  <div>
+                    <div className="col-4">
+                      <p><strong>Date: </strong></p>{new Date(biologic.date).toDateString()}
+                    </div>
+                    <div className="col-4">
+                      <p><strong>Ajouté par: </strong> - </p>
+                    </div>
+                    <div className="col-4">
+                      <p><strong>Observation: </strong>{biologic.observation}</p>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+            <div>
+              <h3>Evolutions :</h3>
+              <hr/>
+              { synthesisDoc.data && synthesisDoc.data.evolutions.map((evolution) => {
+                return (
+                  <div>
+                    <div className="col-4">
+                      {}
+                    </div>
+                    <div className="col-4">
+                      {}
+                    </div>
+                    <div className="col-4">
+                      {}
+                    </div>
+                  </div>
+                )
+              })}
+
+            </div>
+            <div>
+              <h3>Treatments :</h3>
+              <hr/>
+              { synthesisDoc.data && synthesisDoc.data.treatments.map((radiologic , key) => {
+                return (
+                  <div>
+                    <div className="col-4">
+                      {}
+                    </div>
+                    <div className="col-4">
+                      {}
+                    </div>
+                    <div className="col-4">
+                      {}
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          
+            <button className="btn btn-lg btn-primary pull-lg-right full-width" onClick={this.print}>Telecharger le document PDF</button>
+        </div>
         </div>
       );
     }
     return (
-      <div></div>
+      <div>
+      </div>
     )
+    
   }
 }
 
-const styles = StyleSheet.create({
-  page: {
-    flexDirection: 'row',
-    backgroundColor: '#E4E4E4'
-  },
-  section: {
-    margin: 10,
-    padding: 10,
-    flexGrow: 1
-  }
-});
-
-const MyDocument = () => (
-  <Document>
-    <Page size="A4" style={styles.page}>
-      <View style={styles.section}>
-        <Text>Section #1</Text>
-      </View>
-      <View style={styles.section}>
-        <Text>Section #2</Text>
-      </View>
-    </Page>
-  </Document>
-);
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(SynthesisDoc);

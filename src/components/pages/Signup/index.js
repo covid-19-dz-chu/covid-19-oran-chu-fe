@@ -10,6 +10,8 @@ import {
   VALIDATE_FIELDS_SIGNUP,
 } from '../../../utils/constants/actionTypes';
 import '../../../styles/forms.css';
+import Alert from 'react-bootstrap/Alert';
+
 
 const mapStateToProps = (state) => {
   return {
@@ -45,10 +47,10 @@ class Singup extends Component {
     if (!credentials.password) {
       errors.password = 'Veuillez introduire votre mot de passe';
     }
-
     if (credentials.password !== credentials.confirmPassword) {
       errors.confirmPassword = 'Votre confirmation de mot de passe est invalid';
     }
+    
     return errors;
   }
 
@@ -67,13 +69,17 @@ class Singup extends Component {
 
     return (
       <div>
-        <h3>Inscription</h3>
+        <h4>Inscription</h4>
         <small>
           Si vous etes inscris ?{' '}
           <Link to="/login">Veuillez vous connecter</Link>
         </small>
         <div>
-        <strong> {( submitErrors && submitErrors.message ) ? submitErrors.message : null} </strong>
+        {
+          ( submitErrors && submitErrors.message ) ?
+          ( <Alert variant='danger'> { submitErrors.message }</Alert> ): 
+          null
+        }
         </div>
         <form onSubmit={this.onSubmit}>
           <fieldset>
@@ -87,9 +93,8 @@ class Singup extends Component {
                 this.props.onChangeField('email', e.target.value)
               }
             />
+            <small className="full-width form-error">{(formErrors && formErrors.email ) ? formErrors.email : '' }</small>
           </fieldset>
-          <small>{(formErrors && formErrors.email ) ? formErrors.email : '' }</small>
-
           <fieldset>
             <label className="form-label" htmlFor="motDePasse">Mot de passe</label>
             <input
@@ -101,8 +106,9 @@ class Singup extends Component {
                 this.props.onChangeField('password', e.target.value)
               }
             />
+            <small className="full-width form-error"  >{(formErrors && formErrors.password ) ? formErrors.password : '' }</small>
+
           </fieldset>
-          <small>{(formErrors && formErrors.password ) ? formErrors.password : '' }</small>
           <fieldset>
             <label className="form-label" htmlFor="confirmMotDePasse">Confirmation Mot de passe</label>
             <input
@@ -114,8 +120,8 @@ class Singup extends Component {
                 this.props.onChangeField('confirmPassword', e.target.value)
               }
             />
+            <small className="full-width form-error">{(formErrors && formErrors.confirmPassword ) ? formErrors.confirmPassword : '' }</small>
           </fieldset>
-          <small>{(formErrors && formErrors.confirmPassword ) ? formErrors.confirmPassword : '' }</small>
           <br/>
           <button
             className="btn btn-lg btn-primary pull-xs-right"
