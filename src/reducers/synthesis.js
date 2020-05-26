@@ -5,6 +5,7 @@ import {
   UPDATE_FIELD_SYNTHESIS,
   SYNTHESISDOC_PAGE_LOADED,
   ASYNC_START,
+  SYNTHESISDOC_PAGE_UNLOADED,
 } from '../utils/constants/actionTypes';
 
 export default (state = {}, action) => {
@@ -22,7 +23,7 @@ export default (state = {}, action) => {
         formErrors: action.payload.error,
       };
     case ASYNC_START:
-      if(action.subtype === SYNTHESIS_PAGE_LOADED){
+      if(action.subtype === SYNTHESIS_PAGE_LOADED || action.subtype === SYNTHESISDOC_PAGE_LOADED){
         return {
           ...state,
           loading: true,
@@ -38,6 +39,7 @@ export default (state = {}, action) => {
     case SYNTHESISDOC_PAGE_LOADED:
       return {
         ...state,
+        loading: false,
         synthesisDoc: action.payload.data || null,
       };
     case UPDATE_FIELD_SYNTHESIS:

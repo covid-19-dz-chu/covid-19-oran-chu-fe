@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Spinner from 'react-bootstrap/Spinner';
 import patientRequest from '../../../api/patients';
 import { SYNTHESISDOC_PAGE_LOADED } from '../../../utils/constants/actionTypes';
 import Personal from './components/Personal';
+import Biologics from './components/Biologics';
 
 const mapStateToProps = (state) => ({
   synthesisDoc : state.synthesis.synthesisDoc || null,
+  laoding : state.synthesis.loading,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -38,6 +41,7 @@ class SynthesisDoc extends Component {
               <p>Date : {new Date().toDateString()}</p>
             </div>
             <Personal/>
+            <Biologics/>
             <div>
               <h3>Radiologies :</h3>
               <hr/>
@@ -76,25 +80,6 @@ class SynthesisDoc extends Component {
                     </div>
                     <div className="col-4">
                     {}
-                    </div>
-                  </div>
-                )
-              })}
-              </div>
-            <div>
-              <h3>Biologiques :</h3>
-              <hr/>
-              { synthesisDoc.data && synthesisDoc.data.biologics.map((biologic , key) => {
-                return (
-                  <div>
-                    <div className="col-4">
-                      <p><strong>Date: </strong></p>{new Date(biologic.date).toDateString()}
-                    </div>
-                    <div className="col-4">
-                      <p><strong>Ajouté par: </strong> - </p>
-                    </div>
-                    <div className="col-4">
-                      <p><strong>Observation: </strong>{biologic.observation}</p>
                     </div>
                   </div>
                 )
@@ -145,8 +130,16 @@ class SynthesisDoc extends Component {
         </div>
       );
     }
+    else if (this.props.loading){
+      return (
+        <Spinner animation="border" role="status">
+            <span className="sr-only"></span>
+        </Spinner>
+       )
+    }
     return (
       <div>
+      
       </div>
     )
     
