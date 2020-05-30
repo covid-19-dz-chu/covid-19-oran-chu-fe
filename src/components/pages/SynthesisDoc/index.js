@@ -7,6 +7,8 @@ import Personal from './components/Personal';
 import Biologics from './components/Biologics';
 import Radiologics from './components/Radiologics';
 import Ecgs from './components/Ecgs';
+import Evolutions from './components/Evolutions';
+import Treatements from './components/Treatments';
 
 const mapStateToProps = (state) => ({
   synthesisDoc : state.synthesis.synthesisDoc || null,
@@ -37,97 +39,18 @@ class SynthesisDoc extends Component {
     const synthesisDoc = this.props.synthesisDoc;
     if (synthesisDoc && synthesisDoc.data) {
       return (
-        <div className="container">
+        <div>
             <div className="text-center">
-              <p>Date : {new Date().toDateString()}</p>
+              <h3>Date: {new Date().toDateString()}</h3>
             </div>
-            <Personal/>
-            <Biologics/>
-            <div>
-              <h3>Radiologies :</h3>
-              <hr/>
-              { synthesisDoc.data && synthesisDoc.data.radiologics.map((radiologic) => {
-                  return (
-                    <div className="row"> 
-                      <div className="col-4">
-                        <p><strong>Date:</strong> {new Date(radiologic.date).toDateString()}</p>
-                      </div>
-                      <div className="col-4">
-                        <p><strong>Ajouté par: </strong> - </p>
-                      </div>
-                      <div className="col-4">
-                        <p><strong>Type radiologie: </strong> {radiologic.type}</p>
-                      </div>
-                      <div className="col-12">
-                        <p><strong>Observation: </strong>{radiologic.observation}</p>
-                      </div>
-                    </div>
-                  )
-                })}
-              
-            </div>
-            <div>
-              <h3>Ecgs :</h3>
-              <hr/>
-              <div className="row">
-              { synthesisDoc.data && synthesisDoc.data.ecgs.map((ecg) => {
-                return (
-                  <div>
-                    <div className="col-4">
-                    {}
-                    </div>
-                    <div className="col-4">
-                    {}
-                    </div>
-                    <div className="col-4">
-                    {}
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
-            <div>
-              <h3>Evolutions :</h3>
-              <hr/>
-              { synthesisDoc.data && synthesisDoc.data.evolutions.map((evolution) => {
-                return (
-                  <div>
-                    <div className="col-4">
-                      {}
-                    </div>
-                    <div className="col-4">
-                      {}
-                    </div>
-                    <div className="col-4">
-                      {}
-                    </div>
-                  </div>
-                )
-              })}
-
-            </div>
-            <div>
-              <h3>Treatments :</h3>
-              <hr/>
-              { synthesisDoc.data && synthesisDoc.data.treatments.map((radiologic , key) => {
-                return (
-                  <div>
-                    <div className="col-4">
-                      {}
-                    </div>
-                    <div className="col-4">
-                      {}
-                    </div>
-                    <div className="col-4">
-                      {}
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
-          
             <button className="btn btn-lg btn-primary pull-lg-right full-width" onClick={this.print}>Telecharger le document PDF</button>
-        </div>
+            <Personal/>
+            <Evolutions/>
+            <Biologics/>
+            <Radiologics/>
+            <Ecgs/>
+            <Treatements/>
+          
         </div>
       );
     }

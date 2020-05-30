@@ -25,10 +25,10 @@ const SynthesisBody = (props) => {
           synthesisList && synthesisList.data.map((synthesis , key) => {
             return (
               <div className="synthesis-body" key={key}>
-                <h1>{ synthesis.syntheseuniteHospitalisation }</h1>
-                <h2>{ synthesis.dateAdmission }</h2>
-                <h4>{ synthesis.age }</h4>
-                <Link to={`/dashbord/document/${synthesis.uuid}`}>Generer la synthese du patient</Link>
+                <h3><strong>Nom:</strong> {synthesis.nom}</h3>
+                <h3><strong>Prénom:</strong> {synthesis.prenom}</h3>
+                <h4><strong>Age:</strong> { synthesis.age }</h4>
+                <Link to={`/dashbord/document/${synthesis.uuid}`}>Generer la synthese du patient ></Link>
               </div>
               )
             }

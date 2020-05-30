@@ -89,7 +89,7 @@ class Singup extends Component {
               className="form-control form-control-lg"
               type="text"
               placeholder="Entrer votre email"
-              value={email}
+              value={email || ''}
               onChange={(e) =>
                 this.props.onChangeField('email', e.target.value)
               }
@@ -102,7 +102,7 @@ class Singup extends Component {
               className="form-control form-control-lg"
               type="password"
               placeholder="Entrer votre mot de passe"
-              value={password}
+              value={password || ''}
               onChange={(e) =>
                 this.props.onChangeField('password', e.target.value)
               }
@@ -116,7 +116,7 @@ class Singup extends Component {
               className="form-control form-control-lg"
               type="password"
               placeholder="Confirmer votre mot de passe"
-              value={confirmPassword}
+              value={confirmPassword || ''}
               onChange={(e) =>
                 this.props.onChangeField('confirmPassword', e.target.value)
               }

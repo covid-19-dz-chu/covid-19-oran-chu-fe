@@ -18,4 +18,4 @@ const TopBar = (props) => {
   )
 }
 
-export default connect(mapStateTopProps , {})(TopBar);
+export default connect(mapStateTopProps, null)(TopBar);

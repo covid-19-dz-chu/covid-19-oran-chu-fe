@@ -68,8 +68,6 @@ class Synthesis extends Component {
             </fieldset>
           </form>
         </div>
-        
-
         <SynthesisBody/>
       </div>
     )

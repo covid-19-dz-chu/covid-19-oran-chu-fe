@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Router, Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { ConnectedRouter } from 'react-router-redux';
 import GuestRoute from '../HoCs/GuestRoute';
 import PrivateRoute from '../HoCs/PrivateRoute';
 import Dashbord from '../pages/Dashboard';
@@ -12,13 +11,14 @@ import homeRequets from '../../api/home';
 import { setTokenRequest } from '../../api/request';
 import Navbar from '../features/Navbar';
 import { app } from '../../api/firebase';
-import { APP_LOADING , LOGOUT_REQUESTED } from '../../utils/constants/actionTypes';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../styles/style.css';
 import SynthesisDoc from '../pages/SynthesisDoc';
 import Synthesis from '../pages/Synthesis';
 import { history } from '../../store';
-import Spinner from 'react-bootstrap/Spinner'
+import Spinner from 'react-bootstrap/Spinner';
+import { APP_LOADING , LOGOUT_REQUESTED } from '../../utils/constants/actionTypes';
+
 
 
 
@@ -31,7 +31,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onLoad: (payload) => dispatch({ type: APP_LOADING, payload }),
-  onLogout : () => dispatch({type : LOGOUT_REQUESTED}),
+  onLogout : () => dispatch({ type : LOGOUT_REQUESTED }),
 });
 
 class App extends Component {
@@ -41,7 +41,7 @@ class App extends Component {
         this.props.onLoad(Promise.all([homeRequets.healthCheck(), user ]));
         user.getIdToken().then((token) => {
           setTokenRequest(token);
-        })
+        });
       }else {
         this.props.onLoad(Promise.all([homeRequets.healthCheck(), null]));
       }
@@ -79,9 +79,8 @@ class App extends Component {
           <span className="sr-only">Loading...</span>
         </Spinner>
         <div>
-          <button className="btn btn-lg btn-primary pull-xs-right" onClick={this.reload()}>Reload</button>
+          <button className="btn btn-lg btn-primary pull-xs-right" onClick={this.reload}>Reload</button>
         </div>
-        
       </div>
     );
   }
