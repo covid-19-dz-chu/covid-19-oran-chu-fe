@@ -59,7 +59,6 @@ class App extends Component {
           <Router history={history}>
           <Navbar/>
           <div className="container">
-            <h1>{this.props.appName}</h1>
             <Switch>
               <Route exact path="/" component={Home} />
               <GuestRoute exact path="/login" component={Login} />

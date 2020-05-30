@@ -5,6 +5,8 @@ import patientRequest from '../../../api/patients';
 import { SYNTHESISDOC_PAGE_LOADED } from '../../../utils/constants/actionTypes';
 import Personal from './components/Personal';
 import Biologics from './components/Biologics';
+import Radiologics from './components/Radiologics';
+import Ecgs from './components/Ecgs';
 
 const mapStateToProps = (state) => ({
   synthesisDoc : state.synthesis.synthesisDoc || null,
@@ -33,7 +35,6 @@ class SynthesisDoc extends Component {
 
   render() {
     const synthesisDoc = this.props.synthesisDoc;
-    
     if (synthesisDoc && synthesisDoc.data) {
       return (
         <div className="container">

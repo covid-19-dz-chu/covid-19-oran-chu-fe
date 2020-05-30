@@ -43,12 +43,12 @@ class Synthesis extends Component {
     const { synthesisNum } = this.props.synthesis;
     return (
       <div>
-        <strong>{}</strong>
+        <h3>Recherche de patient</h3>
         <div className="synthesis-search">
           <form onSubmit={this.onSubmit}>
             <br/>
             <fieldset>  
-              <label className="" htmlFor="patientNumber">Entrer le billet de salle</label>
+              <label className="full-width form-label" htmlFor="patientNumber">Entrer le billet de salle</label>
               <div className="row">
                   <div className="col-10">
                     <input
@@ -57,7 +57,7 @@ class Synthesis extends Component {
                         value={synthesisNum}
                         onChange={(ev) => {this.props.onChangeField('synthesisNum' , ev.target.value)}}
                         placeholder="Entrer votre billet de salle"
-                      />
+                    />
                   </div>
                   <div className="col-2">
                       <button className="btn btn-lg btn-primary pull-lg-right full-width" type="submit">

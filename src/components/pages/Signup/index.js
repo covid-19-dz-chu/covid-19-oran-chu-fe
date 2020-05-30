@@ -11,6 +11,7 @@ import {
 } from '../../../utils/constants/actionTypes';
 import '../../../styles/forms.css';
 import Alert from 'react-bootstrap/Alert';
+import Spinner from 'react-bootstrap/Spinner';
 
 
 const mapStateToProps = (state) => {
@@ -124,10 +125,20 @@ class Singup extends Component {
           </fieldset>
           <br/>
           <button
-            className="btn btn-lg btn-primary pull-xs-right"
-            type="submit"
-          >
-            Sign in
+          className="btn btn-lg btn-primary pull-xs-right"
+          type="submit"
+        > 
+            {this.props.signup.loading ? (
+              <Spinner
+              as="span"
+              animation="border"
+              size="sm"
+              role="status"
+              aria-hidden="true"
+            />
+            ): (
+              <p>Sign in</p>
+            )}
           </button>
         </form>
       </div>

@@ -12,7 +12,7 @@ const Biologics = ( props ) => {
     <div>
       <div>
         <h3>Biologiques :</h3>
-        
+        <hr/>
         {synthesis && synthesis.biologics.map((biologic) => {
           return (
             <div className="row">
@@ -83,4 +83,4 @@ const Biologics = ( props ) => {
   )
 }
 
-export default connect(mapStateToProps , {})(Biologics);
+export default connect(mapStateToProps, {})(Biologics);
