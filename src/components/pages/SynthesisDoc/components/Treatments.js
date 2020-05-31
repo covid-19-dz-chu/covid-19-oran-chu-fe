@@ -16,7 +16,7 @@ const Treatments = (props) => {
     <Container>
     { synthesis && synthesis.treatments && synthesis.treatments.map((treatment , key ) => {
       return (
-        <div key={key}> 
+        <div className="section-item" key={key}> 
           <Row>
             <Col>
               <p><strong>Date: </strong>{new Date(treatment.date).toLocaleString('fr-FR')}</p>

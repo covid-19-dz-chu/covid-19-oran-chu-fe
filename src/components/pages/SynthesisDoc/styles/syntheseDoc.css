@@ -11,4 +11,5 @@ h3 {
     }
     button {display: none !important;}
     section {page-break-inside :avoid;}
+    .section-item {page-break-inside :avoid;}
 }

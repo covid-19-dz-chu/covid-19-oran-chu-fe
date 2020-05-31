@@ -14,7 +14,7 @@ const Biologics = (props) => {
       <Container>
         {synthesis && synthesis.biologics && synthesis.biologics.map((biologic ,key) => {
           return (
-            <div key={key}>
+            <div className="section-item"  key={key}>
             <Row>
             <Col>
               <p><strong>Date: </strong>{new Date(biologic.date).toLocaleString('fr-FR')}</p>

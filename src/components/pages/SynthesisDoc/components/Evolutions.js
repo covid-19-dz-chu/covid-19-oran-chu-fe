@@ -15,7 +15,7 @@ const Evolutions = ( props ) => {
     <Container>
     { synthesis && synthesis.evolutions && synthesis.evolutions.map((evolution , key) => {
       return (
-          <div key={key}>
+          <div className="section-item" key={key}>
           <Row> 
                       <Col>
                         <p><strong>Date:</strong>{new Date(evolution.date).toLocaleString('fr-FR')}</p>

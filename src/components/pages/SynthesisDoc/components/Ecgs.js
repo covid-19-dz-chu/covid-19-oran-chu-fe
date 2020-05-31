@@ -15,7 +15,7 @@ const Ecgs = (props) => {
     <Container>
     {synthesis && synthesis.ecgs && synthesis.ecgs.map((ecg , key) => {
       return (
-        <div key={key}>
+        <div className="section-item" key={key}>
         <Row> 
           <Col>
               <p><strong>Date:</strong> {new Date(ecg.date).toLocaleString('fr-FR')}</p>
