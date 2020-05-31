@@ -18,7 +18,7 @@ export default (state = {}, action) => {
         confirmPassword: '',
       };
     case ASYNC_START:
-      if( action.subtype === 'SIGNUP_REQUESTED' ){
+      if( action.subtype === SIGNUP_REQUESTED ){
         return {
           ...state,
           loading: true,

@@ -14,19 +14,17 @@ const Evolutions = ( props ) => {
     <h3>Evolutions :</h3>
     <hr/>
     <Container>
-    { synthesis && synthesis.evolutions && synthesis.evolutions.map((evolution) => {
+    { synthesis && synthesis.evolutions && synthesis.evolutions.map((evolution , key) => {
       return (
-          <div>
+          <div key={key}>
           <Row> 
                       <Col>
-                        <p><strong>Date:</strong>{new Date(evolution.date).toDateString()}</p>
+                        <p><strong>Date:</strong>{new Date(evolution.date).toLocaleString()}</p>
                       </Col>
                       <Col>
-                        <p><strong>Ajouté par:</strong> - </p>
+                        <p><strong>Ajouté par:</strong> {evolution.addedBy}</p>
                       </Col>
-                      <Col>
-                        <p><strong>Type radiologie:</strong> {evolution.type}</p>
-                      </Col>
+                      
           </Row>
           <Row>
             <Col>
@@ -35,33 +33,33 @@ const Evolutions = ( props ) => {
           </Row>
           <Row>
             <Col>
-            <p><strong>Temperature:</strong> {evolution.temperature}</p>
+            <p><strong>Temperature:</strong> {evolution.temperature} C</p>
             </Col>
             <Col>
-            <p><strong>Tension arterielle:</strong> {evolution.tensionArterielle}</p>
+            <p><strong>Tension arterielle:</strong> {evolution.tensionArterielle} mmHg</p>
             </Col>
             <Col>
-            <p><strong>Frequence cardiaque:</strong> {evolution.frequenceCardiaque}</p>
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-            <p><strong>Frequence respiratoire:</strong> {evolution.frequenceRespiratoire}</p> 
-            </Col>
-          </Row>            
-          <Row>
-            <Col>
-            <p><strong>SpO2 à l’air ambiant :</strong> {evolution.spO2AirAmbiant}</p>
-            </Col>
-          </Row>            
-          <Row>
-            <Col>
-            <p><strong>SSpO2 sous O2 :</strong> {evolution.spO2AirAmbiant}</p>
+            <p><strong>Frequence cardiaque:</strong> {evolution.frequenceCardiaque} btm/min</p>
             </Col>
           </Row>
           <Row>
             <Col>
-            <p><strong>Dose d’O2 :</strong> {evolution.spO2AirAmbiant}</p>
+            <p><strong>Frequence respiratoire:</strong> {evolution.frequenceRespiratoire} cycle/min</p> 
+            </Col>
+          </Row>            
+          <Row>
+            <Col>
+            <p><strong>SpO2 à l’air ambiant :</strong> {evolution.spO2AirAmbiant}%</p>
+            </Col>
+          </Row>            
+          <Row>
+            <Col>
+            <p><strong>SSpO2 sous O2 :</strong> {evolution.spO2AirAmbiant}%</p>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+            <p><strong>Dose d’O2 :</strong> {evolution.spO2AirAmbiant}%</p>
             </Col>
           </Row>
           <Row>

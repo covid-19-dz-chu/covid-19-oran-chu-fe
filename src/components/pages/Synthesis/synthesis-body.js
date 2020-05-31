@@ -11,23 +11,17 @@ const mapStateToProps = (state) => ({
 
 const SynthesisBody = (props) => {
   const { synthesisList , loading } = props.synthesis;
-    if(synthesisList && synthesisList.data.length === 0) {
-      return (
-        <div>
-          <small>Aucun patient trouvé.</small>
-        </div>
-      )
-    }
-    else if(synthesisList && synthesisList.data ) {
+    if(synthesisList && synthesisList.data ) {
       return (
         <div>
         {
           synthesisList && synthesisList.data.map((synthesis , key) => {
             return (
               <div className="synthesis-body" key={key}>
-                <h3><strong>Nom:</strong> {synthesis.nom}</h3>
-                <h3><strong>Prénom:</strong> {synthesis.prenom}</h3>
-                <h4><strong>Age:</strong> { synthesis.age }</h4>
+                <h5><strong>Nom:</strong> {synthesis.nom}</h5>
+                <h5><strong>Prénom:</strong> {synthesis.prenom}</h5>
+                <h5><strong>Age:</strong> { synthesis.age }</h5>
+
                 <Link to={`/dashbord/document/${synthesis.uuid}`}>Generer la synthese du patient ></Link>
               </div>
               )
@@ -49,7 +43,7 @@ const SynthesisBody = (props) => {
     }
     return (
       <div>
-        <small>Veuillez entrer billet de salle du patient.</small>
+        <small>Aucun patient trouvé.</small>
       </div>
     )
     

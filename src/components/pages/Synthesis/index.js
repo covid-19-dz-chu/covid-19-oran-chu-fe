@@ -17,7 +17,7 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 class Synthesis extends Component {
-  componentWillMount(){
+  componentDidMount(){
     this.props.onLoad();
   }
 
@@ -44,6 +44,7 @@ class Synthesis extends Component {
     return (
       <div>
         <h3>Recherche de patient</h3>
+        <p>Veuillez entrer le billet de salle et génerer la synthese de ce dernier</p>
         <div className="synthesis-search">
           <form onSubmit={this.onSubmit}>
             <br/>
@@ -54,7 +55,7 @@ class Synthesis extends Component {
                     <input
                         className="form-control form-control-lg"
                         type="text"
-                        value={synthesisNum}
+                        value={synthesisNum || ''}
                         onChange={(ev) => {this.props.onChangeField('synthesisNum' , ev.target.value)}}
                         placeholder="Entrer votre billet de salle"
                     />

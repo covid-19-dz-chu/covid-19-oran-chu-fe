@@ -8,26 +8,24 @@ const mapStateToProps = (state) => ({
 })
 
 const Treatments = (props) => {
-  const synthesis = props.synthesis;
+  const synthesis = props.synthesis.data;
 
   return (
     <>
     <h3>Traitements :</h3>
     <hr/>
     <Container>
-    { synthesis.treatments && synthesis.treatments.data.map((treatment) => {
+    { synthesis && synthesis.treatments && synthesis.treatments.map((treatment , key ) => {
       return (
-        <div> 
+        <div key={key}> 
           <Row>
             <Col>
-              <p><strong>Date: </strong>{new Date(treatment.date).toDateString()}</p>
+              <p><strong>Date: </strong>{new Date(treatment.date).toLocaleString()}</p>
             </Col>
             <Col>
-              <p><strong>Ajouté par:</strong> - </p>
+              <p><strong>Ajouté par:</strong> {treatment.addedBy}</p>
             </Col>
-            <Col>
-              <p><strong>Type radiologie: </strong>{treatment.type}</p>
-            </Col>
+            
           </Row>
           <Row>
             <Col>
@@ -46,7 +44,7 @@ const Treatments = (props) => {
           </Row>
           <Row>
           <Col>
-          <p><strong>Chloroquine: </strong>{treatment.azithromycine}</p>
+          <p><strong>Azithromycine: </strong>{treatment.azithromycine}</p>
           </Col>
           </Row>
           <Row>

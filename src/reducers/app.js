@@ -21,6 +21,7 @@ export default function (state = {}, action) {
       return {
         ...state,
         isAuthenticated: action.payload.success,
+        redirectTo: action.payload.success ? '/login' : null,
       };
     default:
       return state;

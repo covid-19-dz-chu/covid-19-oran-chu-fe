@@ -8,35 +8,35 @@ const mapStateToProps = (state) => ({
 });
 
 const Radiologics = (props) => {
-  const synthesis = props.synthesis;
+  const synthesis = props.synthesis.data;
   return (
     <>
     <h3>Radiologies :</h3>
     <hr/>
     <Container>
-      { synthesis.radiologicss && synthesis.radiologics.data.map((radiologic) => {
-        return (
-            <div>
-              <Row> 
-                      <Col>
-                        <p><strong>Date: </strong>{new Date(radiologic.date).toDateString()}</p>
-                      </Col>
-                      <Col>
-                        <p><strong>Ajouté par: </strong>-</p>
-                      </Col>
-                      <Col>
-                        <p><strong>Type radiologie: </strong>{radiologic.type}</p>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col>
-                        <p><strong>Observation: </strong>{radiologic.observation}</p>
-                      </Col>
-              </Row>
-              <hr/>
-            </div>
-        )
-      })}
+    { synthesis && synthesis.radiologics && synthesis.radiologics.map((radiologic , key) => {
+      return (
+          <div key={key}>
+            <Row> 
+                    <Col>
+                      <p><strong>Date: </strong>{new Date(radiologic.date).toLocaleString()}</p>
+                    </Col>
+                    <Col>
+                      <p><strong>Ajouté par: </strong>{radiologic.addedBy}</p>
+                    </Col>
+                    <Col>
+                      <p><strong>Type radiologie: </strong>{radiologic.type}</p>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <p><strong>Observation: </strong>{radiologic.observation}</p>
+                    </Col>
+            </Row>
+            <hr/>
+          </div>
+      )
+    })}
     </Container>
     </>
   )

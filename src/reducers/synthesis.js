@@ -5,7 +5,6 @@ import {
   UPDATE_FIELD_SYNTHESIS,
   SYNTHESISDOC_PAGE_LOADED,
   ASYNC_START,
-  SYNTHESISDOC_PAGE_UNLOADED,
 } from '../utils/constants/actionTypes';
 
 export default (state = {}, action) => {

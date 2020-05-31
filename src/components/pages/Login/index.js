@@ -35,7 +35,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 class Login extends Component {
-  componentWillMount() {
+  componentDidMount() {
     this.props.onLoad();
   }
 
@@ -75,9 +75,7 @@ class Login extends Component {
           Si vous etes pas inscris ? <Link to="/signup">Inscrivez vous</Link>
         </small>
         {
-          ( submitErrors && submitErrors.message ) ?
-          ( <Alert variant='danger'> { submitErrors.message }</Alert> ): 
-          null
+          ( submitErrors && submitErrors.message ) && <Alert variant='danger'> { submitErrors.message }</Alert> 
         }
         <form onSubmit={this.onSubmit}>
           <fieldset>

@@ -14,15 +14,15 @@ const Ecgs = (props) => {
     <h3>Ecg :</h3>
     <hr/>
     <Container>
-    {synthesis && synthesis.ecgs && synthesis.ecgs.map((ecg) => {
+    {synthesis && synthesis.ecgs && synthesis.ecgs.map((ecg , key) => {
       return (
-        <div>
+        <div key={key}>
         <Row> 
           <Col>
-              <p><strong>Date:</strong> {new Date(ecg.date).toDateString()}</p>
+              <p><strong>Date:</strong> {new Date(ecg.date).toLocaleString()}</p>
           </Col>
           <Col>
-              <p><strong>Ajouté par: </strong> - </p>
+              <p><strong>Ajouté par: </strong> {ecg.addedBy}</p>
           </Col>
           <Col>
               <p><strong>QTC: </strong>{ecg.qtc}</p>

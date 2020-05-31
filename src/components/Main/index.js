@@ -35,7 +35,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 class App extends Component {
-  componentWillMount() {
+  componentDidMount() {
     app.auth().onAuthStateChanged((user) => {
       if(user){
         this.props.onLoad(Promise.all([homeRequets.healthCheck(), user ]));

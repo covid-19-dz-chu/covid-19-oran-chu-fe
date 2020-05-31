@@ -7,4 +7,4 @@ const Footer = () => {
   )
 }
 
-export default connect({} , {})(Navbar);
+export default Navbar;

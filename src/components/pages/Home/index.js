@@ -8,7 +8,7 @@ const mapDispatchToProps = (dispatch) => ({
   onLoad: () => dispatch({ type: HOME_PAGE_LOADED }),
 });
 class Home extends Component {
-  componentWillMount() {
+  componentDidMount() {
     this.props.onLoad();
   }
 

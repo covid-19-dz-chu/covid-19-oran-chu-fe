@@ -9,10 +9,11 @@ import Radiologics from './components/Radiologics';
 import Ecgs from './components/Ecgs';
 import Evolutions from './components/Evolutions';
 import Treatements from './components/Treatments';
+import { Container } from 'react-bootstrap';
 
 const mapStateToProps = (state) => ({
   synthesisDoc : state.synthesis.synthesisDoc || null,
-  laoding : state.synthesis.loading,
+  loading : state.synthesis.loading,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -20,11 +21,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 class SynthesisDoc extends Component {
-  constructor(props){
-    super(props);
-    
-  }
-  componentWillMount(){
+  componentDidMount(){
     if(this.props.match.params) {
       return this.props.onLoad(patientRequest.getPatientSynthesisById(this.props.match.params.id));
     }
@@ -41,7 +38,7 @@ class SynthesisDoc extends Component {
       return (
         <div>
             <div className="text-center">
-              <h3>Date: {new Date().toDateString()}</h3>
+              <h3>Date: {new Date().toLocaleString()}</h3>
             </div>
             <button className="btn btn-lg btn-primary pull-lg-right full-width" onClick={this.print}>Telecharger le document PDF</button>
             <Personal/>
@@ -56,14 +53,16 @@ class SynthesisDoc extends Component {
     }
     else if (this.props.loading){
       return (
+        <Container>
         <Spinner animation="border" role="status">
             <span className="sr-only"></span>
         </Spinner>
-       )
+        </Container>
+      )
     }
     return (
-      <div>
-      
+      <div className="text-center">
+        <h1>Aucune synthese trouvé</h1>
       </div>
     )
     

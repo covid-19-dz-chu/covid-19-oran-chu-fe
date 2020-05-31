@@ -4,7 +4,6 @@ import {
   LOGIN_REQUESTED,
   VALIDATE_FIELDS_LOGIN,
   ASYNC_START,
-  ASYNC_END,
 } from '../utils/constants/actionTypes';
 
 export default (state = {}, action) => {
@@ -20,7 +19,7 @@ export default (state = {}, action) => {
       if( action.subtype === LOGIN_REQUESTED ){
         return {
           ...state,
-          loading:true,
+          loading: true,
         };
       }
       return {

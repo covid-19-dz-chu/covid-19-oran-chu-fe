@@ -32,7 +32,7 @@ const Navbar = (props) => {
                   { !isAuthenticated ? (
                     <>
                     <BNav.Link>
-                      <Link to="/login">Inscription</Link>
+                      <Link to="/login">Connexion</Link>
                     </BNav.Link>
                     <BNav.Link>
                       <Link to="/signup">Inscription</Link>

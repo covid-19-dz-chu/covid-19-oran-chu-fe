@@ -35,7 +35,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 class Singup extends Component {
-  componentWillMount() {
+  componentDidMount() {
     this.props.onLoad();
   }
 
@@ -77,9 +77,7 @@ class Singup extends Component {
         </small>
         <div>
         {
-          ( submitErrors && submitErrors.message ) ?
-          ( <Alert variant='danger'> { submitErrors.message }</Alert> ): 
-          null
+          ( submitErrors && submitErrors.message ) && <Alert variant='danger'> { submitErrors.message }</Alert>
         }
         </div>
         <form onSubmit={this.onSubmit}>
