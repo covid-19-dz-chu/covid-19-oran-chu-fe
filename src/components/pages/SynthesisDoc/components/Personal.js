@@ -13,16 +13,17 @@ const Personal = (props) => {
       <Container>
       <Row>
         <Col>
-            <p><strong>Nom : </strong> {nom}</p>
+            <p><strong>Nom et Prénom : </strong> {nom}  {prenom}</p>
         </Col>
         <Col>
-            <p><strong>Prenom : </strong> {prenom}</p>
+        <p><strong>Age :</strong> {age}</p>
         </Col>
       </Row>
       <Row>
         <Col>
-          <p><strong>Age : </strong> {age}</p>
-          <p><strong>Mise a jour : { new Date(updatedAt).toLocaleString()}</strong></p>
+          <p><strong>Date d’admission :</strong> { new Date(updatedAt).toLocaleString('fr-FR')}</p>
+        </Col>
+        <Col>
           <p><strong>Status Covid :</strong> {currentStatus.status}</p>
         </Col>
       </Row>

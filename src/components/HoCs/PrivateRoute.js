@@ -17,4 +17,4 @@ function PrivateRoute({ component: Component, ...rest }) {
   );
 }
 
-export default connect(mapStateToProps, {})(PrivateRoute);
+export default connect(mapStateToProps, null)(PrivateRoute);

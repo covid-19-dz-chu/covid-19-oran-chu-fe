@@ -50,4 +50,4 @@ const SynthesisBody = (props) => {
   }
 
 
-export default connect(mapStateToProps,{})(SynthesisBody);
+export default connect(mapStateToProps,null)(SynthesisBody);

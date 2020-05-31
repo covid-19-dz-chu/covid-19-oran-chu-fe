@@ -10,22 +10,21 @@ const mapStateToProps = (state) => ({
 const Radiologics = (props) => {
   const synthesis = props.synthesis.data;
   return (
-    <>
-    <h3>Radiologies :</h3>
-    <hr/>
+    <section>
+    <h3>Radiologiques :</h3>  
     <Container>
     { synthesis && synthesis.radiologics && synthesis.radiologics.map((radiologic , key) => {
       return (
           <div key={key}>
             <Row> 
                     <Col>
-                      <p><strong>Date: </strong>{new Date(radiologic.date).toLocaleString()}</p>
+                      <p><strong>Date: </strong>{new Date(radiologic.date).toLocaleString('fr-FR')}</p>
                     </Col>
                     <Col>
                       <p><strong>Ajouté par: </strong>{radiologic.addedBy}</p>
                     </Col>
                     <Col>
-                      <p><strong>Type radiologie: </strong>{radiologic.type}</p>
+                      <p><strong>Type: </strong>{radiologic.type}</p>
                     </Col>
                   </Row>
                   <Row>
@@ -38,7 +37,7 @@ const Radiologics = (props) => {
       )
     })}
     </Container>
-    </>
+    </section>
   )
 }
 

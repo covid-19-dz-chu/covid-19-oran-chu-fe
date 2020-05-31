@@ -21,4 +21,4 @@ function GuestRoute({ component: Component, ...rest }) {
   );
 }
 
-export default connect(mapStateToProps, {})(GuestRoute);
+export default connect(mapStateToProps, null)(GuestRoute);

@@ -10,6 +10,8 @@ import Ecgs from './components/Ecgs';
 import Evolutions from './components/Evolutions';
 import Treatements from './components/Treatments';
 import { Container } from 'react-bootstrap';
+import './styles/syntheseDoc.css';
+
 
 const mapStateToProps = (state) => ({
   synthesisDoc : state.synthesis.synthesisDoc || null,
@@ -37,8 +39,9 @@ class SynthesisDoc extends Component {
     if (synthesisDoc && synthesisDoc.data) {
       return (
         <div>
+            <img src={ require('./synthesis_header.png') } width="100%" alt="chuo-service-infectieux"/>
             <div className="text-center">
-              <h3>Date: {new Date().toLocaleString()}</h3>
+              <h4 className="">Date: {new Date().toLocaleDateString()}</h4>
             </div>
             <button className="btn btn-lg btn-primary pull-lg-right full-width" onClick={this.print}>Telecharger le document PDF</button>
             <Personal/>

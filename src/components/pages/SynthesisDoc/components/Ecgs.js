@@ -10,16 +10,15 @@ const Ecgs = (props) => {
   const synthesis = props.synthesisDoc.data;
 
   return (
-    <>
+    <section>
     <h3>Ecg :</h3>
-    <hr/>
     <Container>
     {synthesis && synthesis.ecgs && synthesis.ecgs.map((ecg , key) => {
       return (
         <div key={key}>
         <Row> 
           <Col>
-              <p><strong>Date:</strong> {new Date(ecg.date).toLocaleString()}</p>
+              <p><strong>Date:</strong> {new Date(ecg.date).toLocaleString('fr-FR')}</p>
           </Col>
           <Col>
               <p><strong>Ajouté par: </strong> {ecg.addedBy}</p>
@@ -38,7 +37,7 @@ const Ecgs = (props) => {
       )}
     )}
     </Container>
-    </>
+    </section>
   )
 }
 

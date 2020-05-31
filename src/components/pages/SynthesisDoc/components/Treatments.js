@@ -11,16 +11,15 @@ const Treatments = (props) => {
   const synthesis = props.synthesis.data;
 
   return (
-    <>
+    <section>
     <h3>Traitements :</h3>
-    <hr/>
     <Container>
     { synthesis && synthesis.treatments && synthesis.treatments.map((treatment , key ) => {
       return (
         <div key={key}> 
           <Row>
             <Col>
-              <p><strong>Date: </strong>{new Date(treatment.date).toLocaleString()}</p>
+              <p><strong>Date: </strong>{new Date(treatment.date).toLocaleString('fr-FR')}</p>
             </Col>
             <Col>
               <p><strong>Ajouté par:</strong> {treatment.addedBy}</p>
@@ -49,7 +48,7 @@ const Treatments = (props) => {
           </Row>
           <Row>
           <Col>                      
-          <p><strong>Chloroquine: </strong>{treatment.autre}</p>
+          <p><strong>Autre: </strong>{treatment.autre}</p>
           </Col>
           </Row>
           <hr/>
@@ -57,7 +56,7 @@ const Treatments = (props) => {
       )
   })}
     </Container>
-    </>
+    </section>
   )
 } 
 
