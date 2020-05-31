@@ -1,0 +1,15 @@
+h3 {
+  color: #3742fa;
+  text-decoration: underline;
+  margin-bottom:40px;
+}
+
+@media print {
+		*{ 
+      font-size : 14px ;  
+      line-height: 1rem;
+    }
+    button {display: none !important;}
+    section {page-break-inside :avoid;}
+    .section-item {page-break-inside :avoid;}
+}

@@ -10,11 +10,11 @@ function PrivateRoute({ component: Component, ...rest }) {
   return (
     <Route
       {...rest}
-      render={() =>
-        rest.isAuthenticated ? <Component/>  : <Redirect to="/login" />
+      render={(props) =>
+        rest.isAuthenticated ? <Component {...props}/>  : <Redirect to="/login" />
       }
     />
   );
 }
 
-export default connect(mapStateToProps, {})(PrivateRoute);
+export default connect(mapStateToProps, null)(PrivateRoute);

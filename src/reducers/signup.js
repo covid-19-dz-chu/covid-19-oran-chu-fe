@@ -4,6 +4,7 @@ import {
   UPDATE_FIELD_SIGNUP,
   SIGNUP_REQUESTED,
   VALIDATE_FIELDS_SIGNUP,
+  ASYNC_START,
 } from '../utils/constants/actionTypes';
 
 export default (state = {}, action) => {
@@ -16,17 +17,27 @@ export default (state = {}, action) => {
         password: '',
         confirmPassword: '',
       };
-
+    case ASYNC_START:
+      if( action.subtype === SIGNUP_REQUESTED ){
+        return {
+          ...state,
+          loading: true,
+        };
+      }
+      return {
+        ...state,
+      };
     case SIGNUP_REQUESTED:
       return {
         ...state,
-        loading: true,
+        loading: false,
+        submitErrors: action.error ? action.payload.response.data : null,
       };
 
     case VALIDATE_FIELDS_SIGNUP:
       return {
         ...state,
-        errors: action.payload.errors ? action.payload.errors : {},
+        formErrors: action.payload.errors || null,
       };
     case UPDATE_FIELD_SIGNUP:
       return {
@@ -37,3 +48,4 @@ export default (state = {}, action) => {
       return state;
   }
 };
+ 

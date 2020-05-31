@@ -9,6 +9,10 @@ import {
   SIGNUP_PAGE_LOADED,
   VALIDATE_FIELDS_SIGNUP,
 } from '../../../utils/constants/actionTypes';
+import '../../../styles/forms.css';
+import Alert from 'react-bootstrap/Alert';
+import Spinner from 'react-bootstrap/Spinner';
+
 
 const mapStateToProps = (state) => {
   return {
@@ -21,11 +25,11 @@ const mapDispatchToProps = (dispatch) => ({
   onChangeField: (key, value) =>
     dispatch({ type: UPDATE_FIELD_SIGNUP, key, value }),
   onValidateFields: (errors) =>
-    dispatch({ type: VALIDATE_FIELDS_SIGNUP, payload: errors }),
-  onSubmit: (username, password) =>
+    dispatch({ type: VALIDATE_FIELDS_SIGNUP, payload: { errors } }),
+  onSubmit: (email, password) =>
     dispatch({
       type: SIGNUP_REQUESTED,
-      payload: authRequests.signup(username, password),
+      payload: authRequests.signup(email, password),
     }),
   onUnload: () => dispatch({ type: SIGNUP_PAGE_UNLOADED }),
 });
@@ -44,10 +48,10 @@ class Singup extends Component {
     if (!credentials.password) {
       errors.password = 'Veuillez introduire votre mot de passe';
     }
-
     if (credentials.password !== credentials.confirmPassword) {
       errors.confirmPassword = 'Votre confirmation de mot de passe est invalid';
     }
+    
     return errors;
   }
 
@@ -55,70 +59,84 @@ class Singup extends Component {
     ev.preventDefault();
     const errors = this.validate(this.props.signup);
     if (Object.keys(errors).length === 0) {
-      console.log({
-        email: this.props.signup.email,
-        password: this.props.signup.password,
-        confirmPassword: this.props.signup.confirmPassword,
-      });
-      // this.props.onSubmit(this.props.email , this.props.password);
+      this.props.onSubmit(this.props.signup.email ,this.props.signup.email);
     } else {
       this.props.onValidateFields(errors);
     }
   };
 
   render() {
-    const { email, password, confirmPassword } = this.props.signup;
+    const { email, password, confirmPassword, submitErrors, formErrors} = this.props.signup;
 
     return (
       <div>
-        <h1>Inscription</h1>
+        <h4>Inscription</h4>
         <small>
           Si vous etes inscris ?{' '}
           <Link to="/login">Veuillez vous connecter</Link>
         </small>
-
+        <div>
+        {
+          ( submitErrors && submitErrors.message ) && <Alert variant='danger'> { submitErrors.message }</Alert>
+        }
+        </div>
         <form onSubmit={this.onSubmit}>
           <fieldset>
-            <label>Email</label>
+            <label className="form-label" htmlFor="email">Email</label>
             <input
               className="form-control form-control-lg"
               type="text"
               placeholder="Entrer votre email"
-              value={email}
+              value={email || ''}
               onChange={(e) =>
                 this.props.onChangeField('email', e.target.value)
               }
             />
+            <small className="full-width form-error">{(formErrors && formErrors.email ) ? formErrors.email : '' }</small>
           </fieldset>
           <fieldset>
-            <label>Mot de passe</label>
+            <label className="form-label" htmlFor="motDePasse">Mot de passe</label>
             <input
               className="form-control form-control-lg"
               type="password"
               placeholder="Entrer votre mot de passe"
-              value={password}
+              value={password || ''}
               onChange={(e) =>
                 this.props.onChangeField('password', e.target.value)
               }
             />
+            <small className="full-width form-error"  >{(formErrors && formErrors.password ) ? formErrors.password : '' }</small>
+
           </fieldset>
           <fieldset>
-            <label>Confirmation Mot de passe</label>
+            <label className="form-label" htmlFor="confirmMotDePasse">Confirmation Mot de passe</label>
             <input
               className="form-control form-control-lg"
               type="password"
               placeholder="Confirmer votre mot de passe"
-              value={confirmPassword}
+              value={confirmPassword || ''}
               onChange={(e) =>
                 this.props.onChangeField('confirmPassword', e.target.value)
               }
             />
+            <small className="full-width form-error">{(formErrors && formErrors.confirmPassword ) ? formErrors.confirmPassword : '' }</small>
           </fieldset>
+          <br/>
           <button
-            className="btn btn-lg btn-primary pull-xs-right"
-            type="submit"
-          >
-            Sign in
+          className="btn btn-lg btn-primary pull-xs-right"
+          type="submit"
+        > 
+            {this.props.signup.loading ? (
+              <Spinner
+              as="span"
+              animation="border"
+              size="sm"
+              role="status"
+              aria-hidden="true"
+            />
+            ): (
+              <p>Sign in</p>
+            )}
           </button>
         </form>
       </div>

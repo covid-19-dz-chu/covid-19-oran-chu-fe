@@ -1,0 +1,10 @@
+.form-label {
+  font-weight: 700;
+}
+
+.form-error {
+  color: #e74c3c;
+}
+fieldset {
+  margin: 20px 0px !important;
+}

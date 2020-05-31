@@ -7,21 +7,21 @@ export default function (state = {}, action) {
         ...state,
         appName: 'Covid 19 application',
         appLoaded: true,
-        currentUser : action.payload[1] ? { email : action.payload[1].email } : null,
-        isAuthenticated : action.payload[1] ? true : false,
+        currentUser: action.payload[1] ? { email : action.payload[1].email } : null,
+        isAuthenticated: !!action.payload[1],
       };
-    
     case LOGIN_REQUESTED:
       return {
         ...state,
         currentUser: action.payload.currentUser,
         redirectTo: action.payload.success ? '/dashbord' : null,
         isAuthenticated: !!action.payload.currentUser,
-      }
+      };
     case LOGOUT_REQUESTED:
       return {
         ...state,
-        isAuthenticated:action.payload?.success ? true : false,
+        isAuthenticated: action.payload.success,
+        redirectTo: action.payload.success ? '/login' : null,
       };
     default:
       return state;

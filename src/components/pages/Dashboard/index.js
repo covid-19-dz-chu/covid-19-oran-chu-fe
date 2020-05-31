@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 
-
 class Dashboard extends Component {
-  componentWillMount() {}
-
   render() {
     return (
       <div>
-        <h1>Dashbord Page</h1>
+        <h2>Bureau</h2>
+        <strong>Souhaitez-vous chercher votre patient ? </strong>
+        
       </div>
     );
   }
