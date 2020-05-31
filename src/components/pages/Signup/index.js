@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Alert from 'react-bootstrap/Alert';
+import Spinner from 'react-bootstrap/Spinner';
 import authRequests from '../../../api/auth';
 import {
   UPDATE_FIELD_SIGNUP,
@@ -10,9 +12,6 @@ import {
   VALIDATE_FIELDS_SIGNUP,
 } from '../../../utils/constants/actionTypes';
 import '../../../styles/forms.css';
-import Alert from 'react-bootstrap/Alert';
-import Spinner from 'react-bootstrap/Spinner';
-
 
 const mapStateToProps = (state) => {
   return {
@@ -51,7 +50,7 @@ class Singup extends Component {
     if (credentials.password !== credentials.confirmPassword) {
       errors.confirmPassword = 'Votre confirmation de mot de passe est invalid';
     }
-    
+
     return errors;
   }
 
@@ -59,14 +58,20 @@ class Singup extends Component {
     ev.preventDefault();
     const errors = this.validate(this.props.signup);
     if (Object.keys(errors).length === 0) {
-      this.props.onSubmit(this.props.signup.email ,this.props.signup.email);
+      this.props.onSubmit(this.props.signup.email, this.props.signup.email);
     } else {
       this.props.onValidateFields(errors);
     }
   };
 
   render() {
-    const { email, password, confirmPassword, submitErrors, formErrors} = this.props.signup;
+    const {
+      email,
+      password,
+      confirmPassword,
+      submitErrors,
+      formErrors,
+    } = this.props.signup;
 
     return (
       <div>
@@ -76,13 +81,15 @@ class Singup extends Component {
           <Link to="/login">Veuillez vous connecter</Link>
         </small>
         <div>
-        {
-          ( submitErrors && submitErrors.message ) && <Alert variant='danger'> { submitErrors.message }</Alert>
-        }
+          {submitErrors && submitErrors.message && (
+            <Alert variant="danger"> {submitErrors.message}</Alert>
+          )}
         </div>
         <form onSubmit={this.onSubmit}>
           <fieldset>
-            <label className="form-label" htmlFor="email">Email</label>
+            <label className="form-label" htmlFor="email">
+              Email
+            </label>
             <input
               className="form-control form-control-lg"
               type="text"
@@ -92,10 +99,14 @@ class Singup extends Component {
                 this.props.onChangeField('email', e.target.value)
               }
             />
-            <small className="full-width form-error">{(formErrors && formErrors.email ) ? formErrors.email : '' }</small>
+            <small className="full-width form-error">
+              {formErrors && formErrors.email ? formErrors.email : ''}
+            </small>
           </fieldset>
           <fieldset>
-            <label className="form-label" htmlFor="motDePasse">Mot de passe</label>
+            <label className="form-label" htmlFor="motDePasse">
+              Mot de passe
+            </label>
             <input
               className="form-control form-control-lg"
               type="password"
@@ -105,11 +116,14 @@ class Singup extends Component {
                 this.props.onChangeField('password', e.target.value)
               }
             />
-            <small className="full-width form-error"  >{(formErrors && formErrors.password ) ? formErrors.password : '' }</small>
-
+            <small className="full-width form-error">
+              {formErrors && formErrors.password ? formErrors.password : ''}
+            </small>
           </fieldset>
           <fieldset>
-            <label className="form-label" htmlFor="confirmMotDePasse">Confirmation Mot de passe</label>
+            <label className="form-label" htmlFor="confirmMotDePasse">
+              Confirmation Mot de passe
+            </label>
             <input
               className="form-control form-control-lg"
               type="password"
@@ -119,22 +133,26 @@ class Singup extends Component {
                 this.props.onChangeField('confirmPassword', e.target.value)
               }
             />
-            <small className="full-width form-error">{(formErrors && formErrors.confirmPassword ) ? formErrors.confirmPassword : '' }</small>
+            <small className="full-width form-error">
+              {formErrors && formErrors.confirmPassword
+                ? formErrors.confirmPassword
+                : ''}
+            </small>
           </fieldset>
-          <br/>
+          <br />
           <button
-          className="btn btn-lg btn-primary pull-xs-right"
-          type="submit"
-        > 
+            className="btn btn-lg btn-primary pull-xs-right"
+            type="submit"
+          >
             {this.props.signup.loading ? (
               <Spinner
-              as="span"
-              animation="border"
-              size="sm"
-              role="status"
-              aria-hidden="true"
-            />
-            ): (
+                as="span"
+                animation="border"
+                size="sm"
+                role="status"
+                aria-hidden="true"
+              />
+            ) : (
               <p>Sign in</p>
             )}
           </button>

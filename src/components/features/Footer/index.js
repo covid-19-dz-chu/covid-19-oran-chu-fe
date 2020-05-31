@@ -1,10 +1,7 @@
 import React from 'react';
 
 const Footer = () => {
-  return (
-    <div>
-    </div>
-  )
-}
+  return <div />;
+};
 
-export default Navbar;
+export default Footer;

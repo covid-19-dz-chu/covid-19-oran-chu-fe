@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { removeTokenRequest } from './api/request';
 import {
   ASYNC_START,
@@ -5,6 +6,11 @@ import {
   LOGIN_REQUESTED,
   LOGOUT_REQUESTED,
 } from './utils/constants/actionTypes';
+
+// Check if function is async or not
+function isPromise(v) {
+  return v && typeof v.then === 'function';
+}
 
 // Replaces redux thunk
 const promiseMiddleware = (store) => (next) => (action) => {
@@ -27,7 +33,6 @@ const promiseMiddleware = (store) => (next) => (action) => {
         store.dispatch(action);
       },
       (error) => {
-        
         const currentState = store.getState();
         if (!skipTracking && currentState.viewChangeCounter !== currentView) {
           return;
@@ -35,12 +40,12 @@ const promiseMiddleware = (store) => (next) => (action) => {
         console.warn('ERROR', error);
 
         action.error = true;
-        action.payload = error; // change to a light weight error 
+        action.payload = error; // TODO: change to a lightweight error
 
         if (!action.skipTracking) {
           store.dispatch({ type: ASYNC_END, promise: action.payload });
         }
-        
+
         store.dispatch(action);
       }
     );
@@ -52,17 +57,12 @@ const promiseMiddleware = (store) => (next) => (action) => {
 const localStorageMiddleware = () => (next) => (action) => {
   if (action.type === LOGIN_REQUESTED) {
     if (action.payload.success) {
-      //setTokenRequest(action.payload.token);
+      // setTokenRequest(action.payload.token);
     }
   } else if (action.type === LOGOUT_REQUESTED) {
-    removeTokenRequest();    
+    removeTokenRequest();
   }
   next(action);
 };
-
-// Check if function is async or not
-function isPromise(v) {
-  return v && typeof v.then === 'function';
-}
 
 export { promiseMiddleware, localStorageMiddleware };

@@ -13,7 +13,6 @@ import '../../../styles/forms.css';
 import Spinner from 'react-bootstrap/Spinner';
 import Alert from 'react-bootstrap/Alert';
 
-
 const mapStateToProps = (state) => {
   return {
     login: state.login,
@@ -25,7 +24,7 @@ const mapDispatchToProps = (dispatch) => ({
   onChangeField: (key, value) =>
     dispatch({ type: UPDATE_FIELD_LOGIN, key, value }),
   onValidateFields: (errors) =>
-    dispatch({ type: VALIDATE_FIELDS_LOGIN, payload: {errors}}),
+    dispatch({ type: VALIDATE_FIELDS_LOGIN, payload: { errors } }),
   onSubmit: (username, password) =>
     dispatch({
       type: LOGIN_REQUESTED,
@@ -57,16 +56,16 @@ class Login extends Component {
 
   onSubmit = (ev) => {
     ev.preventDefault();
-    const errors = this.validate( this.props.login );
+    const errors = this.validate(this.props.login);
     if (Object.keys(errors).length === 0) {
-      this.props.onSubmit( this.props.login.email , this.props.login.password );
+      this.props.onSubmit(this.props.login.email, this.props.login.password);
     } else {
       this.props.onValidateFields(errors);
     }
   };
 
   render() {
-    const { email, password , formErrors , submitErrors } = this.props.login;
+    const { email, password, formErrors, submitErrors } = this.props.login;
 
     return (
       <div>
@@ -74,12 +73,14 @@ class Login extends Component {
         <small>
           Si vous etes pas inscris ? <Link to="/signup">Inscrivez vous</Link>
         </small>
-        {
-          ( submitErrors && submitErrors.message ) && <Alert variant='danger'> { submitErrors.message }</Alert> 
-        }
+        {submitErrors && submitErrors.message && (
+          <Alert variant="danger"> {submitErrors.message}</Alert>
+        )}
         <form onSubmit={this.onSubmit}>
           <fieldset>
-            <label className="form-label" htmlFor="email">Email</label>
+            <label className="form-label" htmlFor="email">
+              Email
+            </label>
             <br />
             <input
               className="form-control form-control-lg"
@@ -90,7 +91,9 @@ class Login extends Component {
                 this.props.onChangeField('email', e.target.value)
               }
             />
-            <small className="full-width form-error">{(formErrors && formErrors.email ) ? formErrors.email : '' }</small>
+            <small className="full-width form-error">
+              {formErrors && formErrors.email ? formErrors.email : ''}
+            </small>
           </fieldset>
 
           <fieldset>
@@ -105,26 +108,28 @@ class Login extends Component {
                 this.props.onChangeField('password', e.target.value)
               }
             />
-            <small className="full-width form-error">{(formErrors && formErrors.password ) ? formErrors.password : '' }</small>
+            <small className="full-width form-error">
+              {formErrors && formErrors.password ? formErrors.password : ''}
+            </small>
           </fieldset>
-          
+
           <br />
           <button
             className="btn btn-lg btn-primary pull-xs-right"
             type="submit"
-          > 
-              {this.props.login.loading ? (
-                <Spinner
+          >
+            {this.props.login.loading ? (
+              <Spinner
                 as="span"
                 animation="border"
                 size="sm"
                 role="status"
                 aria-hidden="true"
               />
-              ): (
-                <p>Sign in</p>
-              )}
-            </button>
+            ) : (
+              <p>Sign in</p>
+            )}
+          </button>
         </form>
       </div>
     );

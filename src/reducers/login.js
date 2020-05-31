@@ -16,7 +16,7 @@ export default (state = {}, action) => {
         password: '',
       };
     case ASYNC_START:
-      if( action.subtype === LOGIN_REQUESTED ){
+      if (action.subtype === LOGIN_REQUESTED) {
         return {
           ...state,
           loading: true,

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Router, Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Spinner from 'react-bootstrap/Spinner';
 import GuestRoute from '../HoCs/GuestRoute';
 import PrivateRoute from '../HoCs/PrivateRoute';
 import Dashbord from '../pages/Dashboard';
@@ -16,11 +17,10 @@ import '../../styles/style.css';
 import SynthesisDoc from '../pages/SynthesisDoc';
 import Synthesis from '../pages/Synthesis';
 import { history } from '../../store';
-import Spinner from 'react-bootstrap/Spinner';
-import { APP_LOADING , LOGOUT_REQUESTED } from '../../utils/constants/actionTypes';
-
-
-
+import {
+  APP_LOADING,
+  LOGOUT_REQUESTED,
+} from '../../utils/constants/actionTypes';
 
 const mapStateToProps = (state) => ({
   appName: state.app.appName,
@@ -31,23 +31,23 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onLoad: (payload) => dispatch({ type: APP_LOADING, payload }),
-  onLogout : () => dispatch({ type : LOGOUT_REQUESTED }),
+  onLogout: () => dispatch({ type: LOGOUT_REQUESTED }),
 });
 
 class App extends Component {
   componentDidMount() {
     app.auth().onAuthStateChanged((user) => {
-      if(user){
-        this.props.onLoad(Promise.all([homeRequets.healthCheck(), user ]));
+      if (user) {
+        this.props.onLoad(Promise.all([homeRequets.healthCheck(), user]));
         user.getIdToken().then((token) => {
           setTokenRequest(token);
         });
-      }else {
+      } else {
         this.props.onLoad(Promise.all([homeRequets.healthCheck(), null]));
       }
     });
   }
-  
+
   reload() {
     //
   }
@@ -57,17 +57,25 @@ class App extends Component {
       return (
         <div>
           <Router history={history}>
-          <Navbar/>
-          <div className="container">
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <GuestRoute exact path="/login" component={Login} />
-              <GuestRoute exact path="/signup" component={Signup} />
-              <PrivateRoute exact path="/dashbord" component={Dashbord} />
-              <PrivateRoute exact path="/dashbord/search" component={Synthesis}/>
-              <PrivateRoute exact path="/dashbord/document/:id" component={SynthesisDoc}/>
-            </Switch>
-          </div>
+            <Navbar />
+            <div className="container">
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <GuestRoute exact path="/login" component={Login} />
+                <GuestRoute exact path="/signup" component={Signup} />
+                <PrivateRoute exact path="/dashboard" component={Dashbord} />
+                <PrivateRoute
+                  exact
+                  path="/dashboard/search"
+                  component={Synthesis}
+                />
+                <PrivateRoute
+                  exact
+                  path="/dashboard/document/:id"
+                  component={SynthesisDoc}
+                />
+              </Switch>
+            </div>
           </Router>
         </div>
       );
@@ -79,7 +87,12 @@ class App extends Component {
           <span className="sr-only">Loading...</span>
         </Spinner>
         <div>
-          <button className="btn btn-lg btn-primary pull-xs-right" onClick={this.reload}>Reload</button>
+          <button
+            className="btn btn-lg btn-primary pull-xs-right"
+            onClick={this.reload}
+          >
+            Reload
+          </button>
         </div>
       </div>
     );
