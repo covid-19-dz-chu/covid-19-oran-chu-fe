@@ -56,7 +56,7 @@ const Biologics = (props) => {
             <Col><p><strong>Glycemie: </strong>{biologic.glycemie} g/l</p></Col>
             <Col><p><strong>Urée: </strong>{biologic.uree} g/l</p></Col>
             <Col><p><strong>Creatinine: </strong>{biologic.creatinine} g/l</p>  </Col>
-            <Col><p><strong>TGO: </strong>{biologic.lym} Ui/l</p>  </Col>
+            <Col><p><strong>TGO: </strong>{biologic.tgo} Ui/l</p>  </Col>
             <Col><p><strong>TGP: </strong>{biologic.tgp} Ui/l</p> </Col>
           </Row>
           <Row>
