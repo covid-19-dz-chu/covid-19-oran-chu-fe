@@ -14,7 +14,7 @@ function GuestRoute({ component: Component, ...rest }) {
         !rest.isAuthenticated ? (
           <Component {...props} />
         ) : (
-          <Redirect to="/dashbord" />
+          <Redirect to="/dashboard" />
         )
       }
     />

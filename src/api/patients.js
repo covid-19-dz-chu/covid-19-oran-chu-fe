@@ -10,7 +10,9 @@ export default {
   getPatientSynthesisById: (id) => {
     return requests.get(`api/v1/patient/synthesis/${id}/?forLatestHours=500`);
   },
-  getPatientSynthesisByIdPerHours:(id , hours) => {
-    return requests.get(`api/v1/patient/synthesis/${id}/?forLatestHours=${hours}`);
-  }
+  getPatientSynthesisByIdPerHours: (id, hours) => {
+    return requests.get(
+      `api/v1/patient/synthesis/${id}/?forLatestHours=${hours}`
+    );
+  },
 };
