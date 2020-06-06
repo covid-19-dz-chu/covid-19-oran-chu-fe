@@ -113,7 +113,7 @@ const Biologics = (props) => {
                   <Col>
                     <p>
                       <strong>TGO: </strong>
-                      {biologic.lym} Ui/l
+                      {biologic.tgo} Ui/l
                     </p>{' '}
                   </Col>
                   <Col>
