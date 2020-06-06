@@ -34,7 +34,7 @@ const Radiologics = (props) => {
                   <Col>
                     <p>
                       <strong>Type: </strong>
-                      {radiologic.type ? radioTypes[radiologic.type] : '/'}
+                      {radioTypes[radiologic.type] || '/'}
                     </p>
                   </Col>
                 </Row>
