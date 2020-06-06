@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Row, Col, Container } from 'react-bootstrap';
+import { Row , Col, Container } from 'react-bootstrap';
+import { radioTypes } from '../constants/radio-types';
 
 const mapStateToProps = (state) => ({
   synthesis: state.synthesis.synthesisDoc,
@@ -33,7 +34,7 @@ const Radiologics = (props) => {
                   <Col>
                     <p>
                       <strong>Type: </strong>
-                      {radiologic.type}
+                      {radioTypes[radiologic.type] || '/'}
                     </p>
                   </Col>
                 </Row>
