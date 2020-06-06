@@ -6,6 +6,6 @@ export default {
     return loginWithEmailAndPassword(email, password);
   },
   signup: (email, password) => {
-    return requests.post('api/v1/auth/signup' , { email ,password });
+    return requests.post('api/v1/auth/signup', { email, password });
   },
 };

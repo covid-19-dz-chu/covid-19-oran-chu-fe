@@ -11,35 +11,47 @@ const Ecgs = (props) => {
 
   return (
     <section>
-    <h3>Ecg :</h3>
-    <Container>
-    {synthesis && synthesis.ecgs && synthesis.ecgs.map((ecg , key) => {
-      return (
-        <div className="section-item" key={key}>
-        <Row> 
-          <Col>
-              <p><strong>Date:</strong> {new Date(ecg.date).toLocaleString('fr-FR')}</p>
-          </Col>
-          <Col>
-              <p><strong>Ajouté par: </strong> {ecg.addedBy}</p>
-          </Col>
-          <Col>
-              <p><strong>QTC: </strong>{ecg.qtc}</p>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-          <p><strong>Observation: </strong>{ecg.observation}</p>  
-          </Col>
-        </Row>
-        <hr/>
-        </div>
-      )}
-    )}
-    </Container>
+      <h3>Ecg :</h3>
+      <Container>
+        {synthesis &&
+          synthesis.ecgs &&
+          synthesis.ecgs.map((ecg, key) => {
+            return (
+              <div className="section-item" key={key}>
+                <Row>
+                  <Col>
+                    <p>
+                      <strong>Date:</strong>{' '}
+                      {new Date(ecg.date).toLocaleString('fr-FR')}
+                    </p>
+                  </Col>
+                  <Col>
+                    <p>
+                      <strong>Ajouté par: </strong> {ecg.addedBy}
+                    </p>
+                  </Col>
+                  <Col>
+                    <p>
+                      <strong>QTC: </strong>
+                      {ecg.qtc}
+                    </p>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <p>
+                      <strong>Observation: </strong>
+                      {ecg.observation}
+                    </p>
+                  </Col>
+                </Row>
+                <hr />
+              </div>
+            );
+          })}
+      </Container>
     </section>
-  )
-}
-
+  );
+};
 
 export default connect(mapStateToProps, null)(Ecgs);

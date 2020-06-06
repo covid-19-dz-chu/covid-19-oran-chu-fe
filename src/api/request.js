@@ -6,11 +6,11 @@ const options = {
 };
 
 export const setTokenRequest = (token) => {
-  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 
 export const removeTokenRequest = () => {
-  axios.defaults.headers.common['Authorization'] = '';
+  axios.defaults.headers.common.Authorization = '';
 };
 
 export default {

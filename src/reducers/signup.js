@@ -12,13 +12,13 @@ export default (state = {}, action) => {
     case SIGNUP_PAGE_LOADED:
       return {
         ...state,
-        laoding: false,
+        loading: false,
         email: '',
         password: '',
         confirmPassword: '',
       };
     case ASYNC_START:
-      if( action.subtype === SIGNUP_REQUESTED ){
+      if (action.subtype === SIGNUP_REQUESTED) {
         return {
           ...state,
           loading: true,
@@ -48,4 +48,3 @@ export default (state = {}, action) => {
       return state;
   }
 };
- 

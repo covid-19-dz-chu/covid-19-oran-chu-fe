@@ -22,7 +22,11 @@ export default (state = {}, action) => {
         formErrors: action.payload.error,
       };
     case ASYNC_START:
-      if(action.subtype === SYNTHESIS_PAGE_LOADED || action.subtype === SYNTHESISDOC_PAGE_LOADED || action.subtype === SYNTHESIS_REQUESTED){
+      if (
+        action.subtype === SYNTHESIS_PAGE_LOADED ||
+        action.subtype === SYNTHESISDOC_PAGE_LOADED ||
+        action.subtype === SYNTHESIS_REQUESTED
+      ) {
         return {
           ...state,
           loading: true,
@@ -49,4 +53,4 @@ export default (state = {}, action) => {
     default:
       return state;
   }
-}
+};

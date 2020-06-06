@@ -6,9 +6,7 @@ import { createBrowserHistory } from 'history';
 import { promiseMiddleware, localStorageMiddleware } from './middleware';
 import reducer from './reducer';
 
-
 export const history = createBrowserHistory();
-
 
 const myRouterMiddleware = routerMiddleware(history);
 
